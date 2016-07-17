@@ -1,0 +1,10 @@
+[package]
+name = "quantum"
+version = "0.1.0"
+authors = ["Ben Eills <ben@beneills.com>"]
+
+[features]
+optimize = []
+
+[dependencies]
+float-cmp = "*"
