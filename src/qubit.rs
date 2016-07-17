@@ -2,7 +2,7 @@ extern crate float_cmp;
 
 use self::float_cmp::ApproxEqUlps;
 
-/// Represents a single (pure) qubit state of the form _a|0> + b|1>_.
+/// Represents a single (pure, not entangled) qubit state of the form _a|0> + b|1>_.
 ///
 /// The qubit is the linear superposition of the computational basis of _|0>_ and _|1>_
 ///
@@ -17,7 +17,7 @@ use self::float_cmp::ApproxEqUlps;
 ///
 /// This representaion of that state should approximately satisfy them, subject to floating
 /// point imprecision.
-struct Qubit {
+struct NonEntangledQubit {
     a_re: f64,
     a_im: f64,
     b_re: f64,
@@ -25,13 +25,13 @@ struct Qubit {
 }
 
 
-impl Qubit {
+impl NonEntangledQubit {
 
     /// Safely construct a qubit, given the real and imaginary parts of both coefficients.
     ///
     /// This function validates that the given state is possible.
-    fn new(a_re: f64, a_im: f64, b_re: f64, b_im: f64) -> Qubit {
-        let candidate = Qubit {
+    fn new(a_re: f64, a_im: f64, b_re: f64, b_im: f64) -> NonEntangledQubit {
+        let candidate = NonEntangledQubit {
             a_re: a_re,
             a_im: a_im,
             b_re: b_re,
@@ -69,10 +69,9 @@ impl Qubit {
 fn initialization_test() {
     let sqrt2inv = 2.0f64.sqrt().recip();
 
-    let q1: Qubit = Qubit::new(0.5,      0.5,      0.5,      0.5);
-    let q2: Qubit = Qubit::new(sqrt2inv, sqrt2inv, 0.0,      0.0);
-    let q3: Qubit = Qubit::new(0.0,      0.0,      sqrt2inv, sqrt2inv);
-
+    let q1: NonEntangledQubit = NonEntangledQubit::new(0.5,      0.5,      0.5,      0.5);
+    let q2: NonEntangledQubit = NonEntangledQubit::new(sqrt2inv, sqrt2inv, 0.0,      0.0);
+    let q3: NonEntangledQubit = NonEntangledQubit::new(0.0,      0.0,      sqrt2inv, sqrt2inv);
 
     assert!(q1.validate());
     assert!(q2.validate());
@@ -83,5 +82,5 @@ fn initialization_test() {
 #[should_panic(expected = "assertion failed")]
 #[cfg(not(feature = "optimize"))]
 fn bad_initialization_test() {
-    Qubit::new(0.0,      0.0,      0.0,      0.0);
+    NonEntangledQubit::new(0.0,      0.0,      0.0,      0.0);
 }
