@@ -1,6 +1,4 @@
-extern crate float_cmp;
-
-use self::float_cmp::ApproxEqUlps;
+use float_cmp::ApproxEqUlps;
 
 /// Represents a single (pure, not entangled) qubit state of the form _a|0> + b|1>_.
 ///

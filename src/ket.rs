@@ -1,6 +1,4 @@
-extern crate float_cmp;
-
-use self::float_cmp::ApproxEqUlps;
+use float_cmp::ApproxEqUlps;
 
 use num::Complex;
 use num::traits::{One, Zero};
