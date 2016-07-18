@@ -1,3 +1,4 @@
+use rand;
 use std::cell::Cell;
 
 use classical::ClassicalRegister;
@@ -62,7 +63,26 @@ impl QuantumRegister {
 
         self.collapsed = Cell::new(true);
 
-        ClassicalRegister::new(vec![1, 0])
+        // Algorithm:
+        // 1) we choose a random float between 0 and 1
+        // 2) we partition [0, 1 + epsilon) using the ket coefficient square modulii
+        // 3) we randomly choose a coefficient
+        // 4) we return the matching state
+
+        let sample = rand::random::<f64>() % 1.0;
+        let mut cumulative = 0f64;
+
+        for (state, coefficient) in self.ket.iter().enumerate() {
+            cumulative += coefficient.norm_sqr();
+
+            if sample < cumulative {
+                return ClassicalRegister::from_state(self.width, state as u32)
+            }
+        }
+
+    // catch floating point imprecision
+    // TODO log this somewhere
+    ClassicalRegister::from_state(self.width, 0)
     }
 }
 
@@ -80,8 +100,11 @@ fn initialization_test() {
 fn collapse_test() {
     let nibble = ClassicalRegister::zeroed(4);
     let mut r: QuantumRegister = QuantumRegister::new(4, &nibble);
-    r.collapse();
+    let end: ClassicalRegister = r.collapse();
 
+    // We haven't performed any operations on the quantum register, therefore
+    // it should remain unchanged upon collapse.
+    assert_eq!(nibble, end);
     assert!(r.collapsed.get());
 }
 

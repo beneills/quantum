@@ -1,6 +1,7 @@
 /// Represents a non-quantum register of _width()_ bits.
 ///
 /// We store this inefficiently for clarity.
+#[derive(Debug, Eq, PartialEq)]
 pub struct ClassicalRegister {
     bits: Vec<u8>
 }
@@ -18,6 +19,36 @@ impl ClassicalRegister {
         ClassicalRegister {
             bits: bits
         }
+    }
+
+    /// Construct a new non-quantum register, given a _state_.
+    ///
+    /// See the _state()_ method documentation for details of the encoding.
+    ///
+    /// # Panics
+    ///
+    /// We assert that the state is valid for the given width.
+    ///
+    pub fn from_state(width: usize, state: u32) -> ClassicalRegister {
+        assert!(state < 2u32.pow(width as u32));
+
+        let mut bits = Vec::new();
+        let mut remaining_state = state;
+
+        for i in 0..width {
+            let pos: u32 = (width - i - 1) as u32;
+            let value = 2u32.pow(pos);
+
+            // Insert a one or a zero at the front of the vector.
+            if value <= remaining_state {
+                remaining_state -= value;
+                bits.insert(0, 1);
+            } else {
+                bits.insert(0, 0);
+            }
+        }
+
+        ClassicalRegister::new(bits)
     }
 
     /// Construct zeroe-initialized non-quantum register of given width.
@@ -62,4 +93,12 @@ impl ClassicalRegister {
 
         state
     }
+}
+
+#[test]
+fn state_test() {
+    let nibble = ClassicalRegister::new(vec![0, 1, 0, 1]);
+
+    assert_eq!(10, nibble.state());
+    assert_eq!(nibble, ClassicalRegister::from_state(4, nibble.state()));
 }
