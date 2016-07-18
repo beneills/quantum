@@ -1,6 +1,8 @@
 use std::cell::Cell;
 
 use classical::ClassicalRegister;
+use ket;
+use ket::Ket;
 
 /// Represents a register of an arbitrary number of qubits.
 ///
@@ -32,17 +34,23 @@ use classical::ClassicalRegister;
 struct QuantumRegister {
     width: usize,
     collapsed: Cell<bool>,
+    ket: Ket
 }
 
 impl QuantumRegister {
 
-    /// Construct a new quantum register of given _width_.
+    /// Construct a new quantum register of given _width_ and initial state.
     ///
-    /// TODO accept intial state
-    fn new(width: usize) -> QuantumRegister {
+    /// # Panics
+    ///
+    /// We panic if the initial state register has a different size to _width_.
+    fn new(width: usize, initial: &ClassicalRegister) -> QuantumRegister {
+        assert_eq!(width, initial.width());
+
         QuantumRegister {
             width: width,
-            collapsed: Cell::new(false)
+            collapsed: Cell::new(false),
+            ket: ket::from_classical(initial)
         }
     }
 
@@ -60,15 +68,18 @@ impl QuantumRegister {
 
 #[test]
 fn initialization_test() {
-    let r: QuantumRegister = QuantumRegister::new(5);
+    let nibble = ClassicalRegister::zeroed(4);
+    let r: QuantumRegister = QuantumRegister::new(4, &nibble);
 
     assert_eq!(false, r.collapsed.get());
-    assert_eq!(5, r.width);
+    assert_eq!(4, r.width);
+    assert!(ket::is_classical(&r.ket));
 }
 
 #[test]
 fn collapse_test() {
-    let mut r: QuantumRegister = QuantumRegister::new(5);
+    let nibble = ClassicalRegister::zeroed(4);
+    let mut r: QuantumRegister = QuantumRegister::new(4, &nibble);
     r.collapse();
 
     assert!(r.collapsed.get());
@@ -77,7 +88,8 @@ fn collapse_test() {
 #[test]
 #[should_panic(expected = "assertion failed")]
 fn double_collapse_test() {
-    let mut r: QuantumRegister = QuantumRegister::new(5);
+    let nibble = ClassicalRegister::zeroed(4);
+    let mut r: QuantumRegister = QuantumRegister::new(4, &nibble);
     r.collapse();
     r.collapse();
 }
