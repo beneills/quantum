@@ -7,4 +7,6 @@ authors = ["Ben Eills <ben@beneills.com>"]
 optimize = []
 
 [dependencies]
+la = "*"
 float-cmp = "*"
+num = "*"

@@ -15,7 +15,7 @@ use self::float_cmp::ApproxEqUlps;
 ///  * _b = b_re + i * b_im_
 ///  * _1 = |a|^2+ |b|^2_
 ///
-/// This representaion of that state should approximately satisfy them, subject to floating
+/// This representation of that state should approximately satisfy them, subject to floating
 /// point imprecision.
 struct NonEntangledQubit {
     a_re: f64,
@@ -23,7 +23,6 @@ struct NonEntangledQubit {
     b_re: f64,
     b_im: f64
 }
-
 
 impl NonEntangledQubit {
 
