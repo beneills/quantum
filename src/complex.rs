@@ -5,6 +5,7 @@
 use std::ops::Add;
 use std::ops::AddAssign;
 use std::ops::Mul;
+use std::ops::Neg;
 
 /// Holds a complex number with 64-bit float parts.
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -35,6 +36,14 @@ impl Complex {
     }
 }
 
+/// Convenience macro for complex number construction.
+#[macro_export]
+macro_rules! c {
+    ($re:expr, $im:expr) => {
+        Complex::new($re, $im)
+    };
+}
+
 impl Add<Complex> for Complex {
     type Output = Complex;
 
@@ -58,12 +67,12 @@ impl AddAssign for Complex {
     }
 }
 
-/// Convenience macro for complex number construction.
-#[macro_export]
-macro_rules! c {
-    ($re:expr, $im:expr) => {
-        Complex::new($re, $im)
-    };
+impl Neg for Complex {
+    type Output = Complex;
+
+    fn neg(self) -> Complex {
+        c![-self.re, -self.im]
+    }
 }
 
 #[test]
