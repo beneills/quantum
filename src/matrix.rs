@@ -1,12 +1,17 @@
+//! Matrix library code (public for pedagogical reasons).
+
 use std::fmt;
 use std::ops::Add;
 use std::ops::Mul;
 
 use complex::Complex;
 
+/// Max size of matrix and therefore ket.
 pub const MAX_SIZE: usize = 32;
+
 const MAX_ELEMENTS: usize = MAX_SIZE * MAX_SIZE;
 
+/// Efficient array of complex numbers.
 pub type Vector = [Complex; MAX_SIZE];
 
 /// Represents a square matrix over C of maximum size _MAX_SIZE_.
@@ -15,9 +20,10 @@ pub type Vector = [Complex; MAX_SIZE];
 /// internally in an array of size _MAX_SIZE^2 * sizeof(Complex)_.
 ///
 /// In practice, this means each matrix occupies around 16KiB.
+#[allow(missing_copy_implementations)]
 pub struct Matrix {
-    pub size: usize,
-    elements: [Complex; MAX_ELEMENTS]
+    size: usize,
+    elements: [Complex; MAX_ELEMENTS],
 }
 
 impl Matrix {
@@ -31,7 +37,7 @@ impl Matrix {
 
         Matrix {
             size: size,
-            elements: [Complex::zero(); MAX_ELEMENTS]
+            elements: [Complex::zero(); MAX_ELEMENTS],
         }
     }
 
@@ -51,8 +57,13 @@ impl Matrix {
 
         Matrix {
             size: size,
-            elements: elements
+            elements: elements,
         }
+    }
+
+    /// Size of the matrix.
+    pub fn size(self: &Matrix) -> usize {
+        self.size
     }
 
     /// Get the element in position _(i, j)_.

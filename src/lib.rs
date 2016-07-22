@@ -1,13 +1,20 @@
+//! Advanced Rust quantum computer simulator.
+
+#![deny(missing_docs,
+        missing_debug_implementations, missing_copy_implementations,
+        trivial_casts, trivial_numeric_casts,
+        unsafe_code,
+        unstable_features,
+        unused_import_braces, unused_qualifications)]
+
 extern crate float_cmp;
 extern crate rand;
 
-mod classical;
-mod complex;
+pub mod complex;
 pub mod computer;
-mod gate;
-mod gates;
-mod ket;
-mod macros;
-mod matrix;
-mod qubit;
-mod register;
+pub mod gate;
+pub mod gates;
+pub mod ket;
+pub mod matrix;
+pub mod other;
+pub mod registers;

@@ -1,3 +1,5 @@
+//! Implementations of quantum gates, intended for consumer use.
+
 use gate::Gate;
 use ket::Ket;
 use matrix::Matrix;

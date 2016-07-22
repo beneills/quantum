@@ -1,6 +1,8 @@
-use classical::ClassicalRegister;
+//! Main consumer module allowing easy control of whole quantum computer.
+
 use gate::Gate;
-use register::QuantumRegister;
+use registers::ClassicalRegister;
+use registers::QuantumRegister;
 
 #[derive(Debug, Eq, PartialEq)]
 enum State {
@@ -11,7 +13,7 @@ enum State {
     Running,
 
     /// The system is collapsed/decomposed into a classical state.
-    Collapsed
+    Collapsed,
 }
 
 /// Represents a quantum computer of one register.
@@ -19,6 +21,7 @@ enum State {
 /// This is essentially a wrapping around a quantum register
 /// with convenience methods to run algorithms, log and read
 /// results.
+#[derive(Debug)]
 pub struct QuantumComputer {
     state: State,
     width: usize,
@@ -27,7 +30,7 @@ pub struct QuantumComputer {
     register: QuantumRegister,
 
     /// Only makes sense if State::Collapsed == state
-    classical: ClassicalRegister
+    classical: ClassicalRegister,
 }
 
 impl QuantumComputer {
@@ -37,7 +40,7 @@ impl QuantumComputer {
             state: State::Initializing,
             width: width,
             register: QuantumRegister::new(width, &ClassicalRegister::zeroed(width)),
-            classical: ClassicalRegister::zeroed(width)
+            classical: ClassicalRegister::zeroed(width),
         }
     }
 

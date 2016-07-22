@@ -1,3 +1,5 @@
+//! Complex number library code (public for pedagogical reasons).
+
 #![macro_use]
 
 use std::ops::Add;
@@ -8,16 +10,13 @@ use std::ops::Mul;
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Complex {
     re: f64,
-    im: f64
+    im: f64,
 }
 
 impl Complex {
     /// Construct a new complex number with 64 bit float parts.
     pub fn new(re: f64, im: f64) -> Complex {
-        Complex {
-            re: re,
-            im: im
-        }
+        Complex { re: re, im: im }
     }
 
     /// Compute the square of the norm/absolute value, i.e. _|z|^2_.
@@ -50,7 +49,8 @@ impl Mul<Complex> for Complex {
     type Output = Complex;
 
     fn mul(self, rhs: Complex) -> Complex {
-        Complex::new(self.re * rhs.re - self.im * rhs.im, self.re * rhs.im + self.im * rhs.re)
+        Complex::new(self.re * rhs.re - self.im * rhs.im,
+                     self.re * rhs.im + self.im * rhs.re)
     }
 }
 

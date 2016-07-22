@@ -1,9 +1,11 @@
+//! Ket library code (public for pedagogical reasons).
+
 use float_cmp::ApproxEqUlps;
 
-use classical::ClassicalRegister;
 use complex::Complex;
 use gate::Gate;
 use matrix::MAX_SIZE;
+use registers::ClassicalRegister;
 
 /// A ket describes the state of a quantum register.
 ///
@@ -19,8 +21,10 @@ use matrix::MAX_SIZE;
 /// more information.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Ket {
-    pub size: usize,
-    pub elements: [Complex; MAX_SIZE]
+    size: usize,
+
+    /// The ket's elements, w.r.t. the computational basis.
+    pub elements: [Complex; MAX_SIZE],
 }
 
 impl Ket {
@@ -28,7 +32,7 @@ impl Ket {
     pub fn new(size: usize) -> Ket {
         Ket {
             size: size,
-            elements: [Complex::zero(); MAX_SIZE]
+            elements: [Complex::zero(); MAX_SIZE],
         }
     }
 
@@ -81,13 +85,14 @@ impl Ket {
         return 1 == ones && 0 == others;
     }
 
+    /// Compute a ket's size from the register width.
     pub fn size(register_width: usize) -> usize {
         2usize.pow(register_width as u32)
     }
 
     /// Apply a quantum gate to this ket, mutating its state.
     pub fn apply(&mut self, gate: Gate) {
-        self.elements = &gate.matrix * &self.elements;
+        self.elements = gate.matrix() * &self.elements;
     }
 }
 

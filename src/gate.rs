@@ -1,3 +1,5 @@
+//! Gate library code (public for pedagogical reasons).
+
 use ket::Ket;
 use matrix::Matrix;
 
@@ -13,13 +15,13 @@ use matrix::Matrix;
 ///
 /// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_computing#Operation)
 /// for more information.
+#[derive(Debug)]
 pub struct Gate {
-    pub width: usize,
-    pub matrix: Matrix
+    width: usize,
+    matrix: Matrix,
 }
 
 impl Gate {
-
     /// Construct a new quantum gate, given _width_ and computational basis matrix.
     ///
     /// Currently we do not check whether the matrix is unitary.
@@ -28,13 +30,23 @@ impl Gate {
     ///
     /// We panic if the supplied matrix is non-square or not of dimension _width_.
     pub fn new(width: usize, matrix: Matrix) -> Gate {
-        assert_eq!(Ket::size(width), matrix.size);
+        assert_eq!(Ket::size(width), matrix.size());
 
         // TODO check that det(matrix) == 1
 
         Gate {
             width: width,
-            matrix: matrix
+            matrix: matrix,
         }
+    }
+
+    /// Width of the gate.
+    pub fn width(&self) -> usize {
+        self.width
+    }
+
+    /// Representative matrix.
+    pub fn matrix(&self) -> &Matrix {
+        &self.matrix
     }
 }

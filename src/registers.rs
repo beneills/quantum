@@ -1,7 +1,8 @@
+//! Classical and quantum register library code (public for pedagogical reasons).
+
 use rand;
 use std::cell::Cell;
 
-use classical::ClassicalRegister;
 use gate::Gate;
 use ket::Ket;
 
@@ -32,14 +33,14 @@ use ket::Ket;
 ///
 /// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_computing#Mechanics)
 /// for more information.
+#[derive(Debug)]
 pub struct QuantumRegister {
     width: usize,
     collapsed: Cell<bool>,
-    ket: Ket
+    ket: Ket,
 }
 
 impl QuantumRegister {
-
     /// Construct a new quantum register of given _width_ and initial state.
     ///
     /// # Panics
@@ -51,14 +52,14 @@ impl QuantumRegister {
         QuantumRegister {
             width: width,
             collapsed: Cell::new(false),
-            ket: Ket::from_classical(initial)
+            ket: Ket::from_classical(initial),
         }
     }
 
     /// Apply a quantum gate to this register, mutating its state.
     pub fn apply(&mut self, gate: Gate) {
         assert_eq!(false, self.collapsed.get());
-        assert_eq!(self.width, gate.width);
+        assert_eq!(self.width, gate.width());
 
         self.ket.apply(gate);
     }
@@ -84,7 +85,7 @@ impl QuantumRegister {
             cumulative += coefficient.norm_sqr();
 
             if sample < cumulative {
-                return ClassicalRegister::from_state(self.width, state as u32)
+                return ClassicalRegister::from_state(self.width, state as u32);
             }
         }
 
@@ -123,4 +124,116 @@ fn double_collapse_test() {
     let mut r: QuantumRegister = QuantumRegister::new(4, &nibble);
     r.collapse();
     r.collapse();
+}
+
+/// Represents a non-quantum register of _width()_ bits.
+///
+/// We store this inefficiently for clarity.
+#[derive(Debug, Eq, PartialEq)]
+pub struct ClassicalRegister {
+    bits: Vec<u8>,
+}
+
+impl ClassicalRegister {
+    /// Construct a new non-quantum register, given a vector of ones and zeroes.
+    ///
+    /// The width is automatically determined from the vector.
+    pub fn new(bits: Vec<u8>) -> ClassicalRegister {
+        for bit in &bits {
+            assert!(0 == *bit || 1 == *bit);
+        }
+
+        ClassicalRegister { bits: bits }
+    }
+
+    /// Construct a new non-quantum register, given a _state_.
+    ///
+    /// See the _state()_ method documentation for details of the encoding.
+    ///
+    /// # Panics
+    ///
+    /// We assert that the state is valid for the given width.
+    ///
+    pub fn from_state(width: usize, state: u32) -> ClassicalRegister {
+        assert!(state < 2u32.pow(width as u32));
+
+        let mut bits = Vec::new();
+        let mut remaining_state = state;
+
+        for i in 0..width {
+            let pos: u32 = (width - i - 1) as u32;
+            let value = 2u32.pow(pos);
+
+            // Insert a one or a zero at the front of the vector.
+            if value <= remaining_state {
+                remaining_state -= value;
+                bits.insert(0, 1);
+            } else {
+                bits.insert(0, 0);
+            }
+        }
+
+        ClassicalRegister::new(bits)
+    }
+
+    /// Construct a new non-quantum register, given an unsigned integer.
+    ///
+    /// See the _state()_ method documentation for details of the encoding.
+    ///
+    /// # Panics
+    ///
+    /// We assert that the integer is valid for the width.
+    ///
+    pub fn from_int(width: usize, int: u32) -> ClassicalRegister {
+        ClassicalRegister::from_state(width, int)
+    }
+
+    /// Construct zeroe-initialized non-quantum register of given width.
+    pub fn zeroed(width: usize) -> ClassicalRegister {
+        ClassicalRegister::new(vec![0; width])
+    }
+
+    /// Compute the register's width.
+    pub fn width(&self) -> usize {
+        self.bits.len()
+    }
+
+    /// Compute the current _state_ of the register.
+    ///
+    /// The _state_ is an integer which uniquely specifies all register bits (for a
+    /// given width).  It does this in the obvious way, by enumerating all _2^n_ bit
+    /// strings in the reversed lexicographic order, and assigning each string an index.
+    ///
+    /// This is equivalent to interpreting the register as an integer with the leftmost
+    /// bit of least significance.
+    ///
+    /// # Panics
+    ///
+    /// This only works for registers of width <= 32.
+    pub fn state(&self) -> u32 {
+        let mut state = 0u32;
+
+        for (pos, bit) in self.bits.iter().enumerate() {
+            if 0u8 != *bit {
+                state += 2u32.pow(pos as u32);
+            }
+        }
+
+        state
+    }
+
+    /// Return the integer represented by this register.
+    ///
+    /// See the _state()_ method documentation for details of the encoding.
+    pub fn to_int(&self) -> u32 {
+        self.state()
+    }
+}
+
+#[test]
+fn state_test() {
+    let nibble = ClassicalRegister::new(vec![0, 1, 0, 1]);
+
+    assert_eq!(10, nibble.state());
+    assert_eq!(nibble, ClassicalRegister::from_state(4, nibble.state()));
 }

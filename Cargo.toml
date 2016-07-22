@@ -2,6 +2,12 @@
 name = "quantum"
 version = "0.1.0"
 authors = ["Ben Eills <ben@beneills.com>"]
+repository = "https://github.com/beneills/quantum.git"
+homepage = "https://github.com/beneills/quantum/"
+license = "MIT"
+readme = "README.md"
+documentation = "http://beneills.github.io/quantum/"
+description = "Advanced Rust quantum computer simulator."
 
 [features]
 optimize = []
