@@ -27,7 +27,7 @@ impl Gate {
     /// # Panics
     ///
     /// We panic if the supplied matrix is non-square or not of dimension _width_.
-    fn new(width: usize, matrix: Matrix) -> Gate {
+    pub fn new(width: usize, matrix: Matrix) -> Gate {
         assert_eq!(Ket::size(width), matrix.size);
 
         // TODO check that det(matrix) == 1
@@ -36,33 +36,5 @@ impl Gate {
             width: width,
             matrix: matrix
         }
-    }
-}
-
-pub mod gates {
-    use gate::Gate;
-    use ket::Ket;
-    use matrix::Matrix;
-
-    /// The identity gate, not mutating the state at all.
-    pub fn identity(width: usize) -> Gate {
-        let m: Matrix = Matrix::identity(Ket::size(width));
-
-        Gate::new(width, m)
-    }
-
-    #[test]
-    fn identity_test() {
-        use complex::Complex;
-
-        let id_gate = identity(3);
-        let mut ket = Ket::new(8);
-        ket.elements[5] = c![99f64, 0f64];
-
-        let expected = ket.clone();
-
-        ket.apply(id_gate);
-
-        assert_eq!(expected, ket);
     }
 }

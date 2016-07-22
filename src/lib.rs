@@ -5,6 +5,7 @@ mod classical;
 mod complex;
 pub mod computer;
 mod gate;
+mod gates;
 mod ket;
 mod macros;
 mod matrix;

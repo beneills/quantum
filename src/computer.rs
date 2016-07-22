@@ -119,7 +119,7 @@ fn state_test() {
 
 #[test]
 fn compute_test() {
-    use gate::gates;
+    use gates;
 
     let mut c = QuantumComputer::new(3);
 
