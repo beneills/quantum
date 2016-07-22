@@ -4,7 +4,7 @@ use std::ops::Mul;
 
 use complex::Complex;
 
-const MAX_SIZE: usize = 32;
+pub const MAX_SIZE: usize = 32;
 const MAX_ELEMENTS: usize = MAX_SIZE * MAX_SIZE;
 
 /// Represents a square matrix over C of maximum size _MAX_SIZE_.

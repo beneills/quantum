@@ -1,5 +1,4 @@
 extern crate float_cmp;
-extern crate num;
 extern crate rand;
 
 mod macros;

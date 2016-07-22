@@ -27,6 +27,11 @@ impl Complex {
     pub fn zero() -> Complex {
         Complex::new(0f64, 0f64)
     }
+
+    /// One in the complex plane, i.e. 1 + 0i.
+    pub fn one() -> Complex {
+        Complex::new(1f64, 0f64)
+    }
 }
 
 /// Implement standard complex addition.
