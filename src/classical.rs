@@ -51,6 +51,18 @@ impl ClassicalRegister {
         ClassicalRegister::new(bits)
     }
 
+    /// Construct a new non-quantum register, given an unsigned integer.
+    ///
+    /// See the _state()_ method documentation for details of the encoding.
+    ///
+    /// # Panics
+    ///
+    /// We assert that the integer is valid for the width.
+    ///
+    pub fn from_int(width: usize, int: u32) -> ClassicalRegister {
+        ClassicalRegister::from_state(width, int)
+    }
+
     /// Construct zeroe-initialized non-quantum register of given width.
     pub fn zeroed(width: usize) -> ClassicalRegister {
         ClassicalRegister::new(vec![0; width])
@@ -73,15 +85,6 @@ impl ClassicalRegister {
     /// # Panics
     ///
     /// This only works for registers of width <= 32.
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// use quantum::classical::ClassicalRegister;
-    ///
-    /// assert_eq!(0, ClassicalRegister::new(vec![0, 0, 0]).state());
-    /// assert_eq!(6, ClassicalRegister::new(vec![0, 1, 1]).state());
-    /// ```
     pub fn state(&self) -> u32 {
         let mut state = 0u32;
 
@@ -92,6 +95,13 @@ impl ClassicalRegister {
         }
 
         state
+    }
+
+    /// Return the integer represented by this register.
+    ///
+    /// See the _state()_ method documentation for details of the encoding.
+    pub fn to_int(&self) -> u32 {
+        self.state()
     }
 }
 

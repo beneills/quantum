@@ -2,7 +2,7 @@ use rand;
 use std::cell::Cell;
 
 use classical::ClassicalRegister;
-use ket;
+use gate::Gate;
 use ket::Ket;
 
 /// Represents a register of an arbitrary number of qubits.
@@ -32,7 +32,7 @@ use ket::Ket;
 ///
 /// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_computing#Mechanics)
 /// for more information.
-struct QuantumRegister {
+pub struct QuantumRegister {
     width: usize,
     collapsed: Cell<bool>,
     ket: Ket
@@ -45,7 +45,7 @@ impl QuantumRegister {
     /// # Panics
     ///
     /// We panic if the initial state register has a different size to _width_.
-    fn new(width: usize, initial: &ClassicalRegister) -> QuantumRegister {
+    pub fn new(width: usize, initial: &ClassicalRegister) -> QuantumRegister {
         assert_eq!(width, initial.width());
 
         QuantumRegister {
@@ -55,10 +55,18 @@ impl QuantumRegister {
         }
     }
 
+    /// Apply a quantum gate to this register, mutating its state.
+    pub fn apply(&mut self, gate: Gate) {
+        assert_eq!(false, self.collapsed.get());
+        assert_eq!(self.width, gate.width);
+
+        self.ket.apply(gate);
+    }
+
     /// Collapse the register to yield one a classical state.
     ///
     /// A register may only be collapsed once, and is invalid thereafter.
-    fn collapse(&mut self) -> ClassicalRegister {
+    pub fn collapse(&mut self) -> ClassicalRegister {
         assert_eq!(false, self.collapsed.get());
 
         self.collapsed = Cell::new(true);
@@ -80,9 +88,9 @@ impl QuantumRegister {
             }
         }
 
-    // catch floating point imprecision
-    // TODO log this somewhere
-    ClassicalRegister::from_state(self.width, 0)
+        // catch floating point imprecision
+        // TODO log this somewhere
+        ClassicalRegister::from_state(self.width, 0)
     }
 }
 

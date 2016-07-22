@@ -3,7 +3,6 @@ use std::ops::Add;
 use std::ops::Mul;
 
 use complex::Complex;
-use ket::Ket;
 
 pub const MAX_SIZE: usize = 32;
 const MAX_ELEMENTS: usize = MAX_SIZE * MAX_SIZE;

@@ -1,3 +1,5 @@
+#![macro_use]
+
 use std::ops::Add;
 use std::ops::AddAssign;
 use std::ops::Mul;

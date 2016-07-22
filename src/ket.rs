@@ -45,6 +45,7 @@ impl Ket {
     }
 
     /// Is this structure a valid ket?
+    #[allow(unused)]
     pub fn is_valid(&self) -> bool {
         let mut sample_space_sum = 0f64;
 
@@ -59,6 +60,7 @@ impl Ket {
     ///
     /// This is true iff. the ket encodes a single basis vector, meaning that
     /// precisely one slot will have value _1_, and all others _0_.
+    #[allow(unused)]
     pub fn is_classical(&self) -> bool {
         assert!(self.is_valid());
 
