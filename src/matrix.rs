@@ -3,9 +3,12 @@ use std::ops::Add;
 use std::ops::Mul;
 
 use complex::Complex;
+use ket::Ket;
 
 pub const MAX_SIZE: usize = 32;
 const MAX_ELEMENTS: usize = MAX_SIZE * MAX_SIZE;
+
+pub type Vector = [Complex; MAX_SIZE];
 
 /// Represents a square matrix over C of maximum size _MAX_SIZE_.
 ///
@@ -13,13 +16,13 @@ const MAX_ELEMENTS: usize = MAX_SIZE * MAX_SIZE;
 /// internally in an array of size _MAX_SIZE^2 * sizeof(Complex)_.
 ///
 /// In practice, this means each matrix occupies around 16KiB.
-struct Matrix {
-    size: usize,
+pub struct Matrix {
+    pub size: usize,
     elements: [Complex; MAX_ELEMENTS]
 }
 
 impl Matrix {
-    /// Construct a new zero-initialized matrix.
+    /// Construct a new zero-initialized matrix of given size.
     ///
     /// # Panics
     ///
@@ -30,6 +33,26 @@ impl Matrix {
         Matrix {
             size: size,
             elements: [Complex::zero(); MAX_ELEMENTS]
+        }
+    }
+
+    /// Construct a new identity matrix of given size.
+    ///
+    /// # Panics
+    ///
+    /// We panic if the given size exceeds _MAX_SIZE_.
+    pub fn identity(size: usize) -> Matrix {
+        assert!(size <= MAX_SIZE);
+
+        let mut elements = [Complex::zero(); MAX_ELEMENTS];
+
+        for i in 0..size {
+            elements[i * MAX_SIZE + i] = Complex::one();
+        }
+
+        Matrix {
+            size: size,
+            elements: elements
         }
     }
 
@@ -110,13 +133,52 @@ impl<'a> Mul<&'a Matrix> for &'a Matrix {
     }
 }
 
+/// Implement standard matrix vector multiplication.
+///
+/// # Panics
+///
+/// We panic if the vector contains non-zero elements in
+/// positions _self.size_ or beyond.
+impl<'a> Mul<&'a Vector> for &'a Matrix {
+    type Output = Vector;
+
+    fn mul(self, rhs: &Vector) -> Vector {
+        let mut output = [Complex::zero(); MAX_SIZE];
+
+        // Check that vector tail is zero
+        for i in self.size..MAX_SIZE {
+            assert_eq!(Complex::zero(), rhs[i])
+        }
+
+        for i in 0..self.size {
+            let mut val = Complex::zero();
+
+            for k in 0..self.size {
+                val += self.get(i, k) * rhs[k]
+            }
+
+            output[i] = val;
+        }
+
+        output
+    }
+}
+
 #[test]
-fn multiplication_test() {
+fn matrix_test() {
     let mut m = Matrix::new(2);
     m.set(0, 0, Complex::new(1f64, 0f64));
     m.set(0, 1, Complex::new(2f64, 0f64));
     m.set(1, 0, Complex::new(3f64, 0f64));
     m.set(1, 1, Complex::new(4f64, 0f64));
+
+    let mut v: Vector = [Complex::zero(); MAX_SIZE];
+    v[0] = Complex::new(10f64, 0f64);
+    v[1] = Complex::new(20f64, 0f64);
+
+    let mut expected: Vector = [Complex::zero(); MAX_SIZE];
+    expected[0] = Complex::new(50f64, 0f64);
+    expected[1] = Complex::new(110f64, 0f64);
 
     let mut added = Matrix::new(2);
     added.set(0, 0, Complex::new(2f64, 0f64));
@@ -132,4 +194,5 @@ fn multiplication_test() {
 
     assert_eq!(added, &m + &m);
     assert_eq!(squared, &m * &m);
+    assert_eq!(expected, &m * &v);
 }
