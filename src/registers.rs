@@ -8,10 +8,10 @@ use ket::Ket;
 
 /// Represents a register of an arbitrary number of qubits.
 ///
-/// The register consists _width_ qubits, all of which are quantum
+/// The register consists `width` qubits, all of which are quantum
 /// entangled.  This means we store the state of the register, which
-/// is normally a quantum superposition of the 2^_width_ possible
-/// classical states, unless the register is _collapsed_ (see below_).
+/// is normally a quantum superposition of the _2^width_ possible
+/// classical states, unless the register is _collapsed_ (see below).
 ///
 /// The register must be initialized with a starting (classical) state,
 /// and therefore holds valid superposition state from constuction.  This
@@ -22,9 +22,9 @@ use ket::Ket;
 /// after which it no longer stores superposition state and therefore cannot
 /// provide further useful information.
 ///
-/// _Collapsing_ the register yields one of the 2^_width_ classical states.
+/// _Collapsing_ the register yields one of the _2^width_ classical states.
 ///
-/// We store the superposition internally as a vector of 2^_width_ complex
+/// We store the superposition internally as a vector of _2^width_ complex
 /// coefficients, known as a _ket_, with the theoretical condition that the
 /// sum of their square moduli equals 1.
 ///
@@ -41,11 +41,11 @@ pub struct QuantumRegister {
 }
 
 impl QuantumRegister {
-    /// Construct a new quantum register of given _width_ and initial state.
+    /// Construct a new quantum register of given `width` and initial state.
     ///
     /// # Panics
     ///
-    /// We panic if the initial state register has a different size to _width_.
+    /// We panic if the initial state register has a different size to `width`.
     pub fn new(width: usize, initial: &ClassicalRegister) -> QuantumRegister {
         assert_eq!(width, initial.width());
 
@@ -73,8 +73,8 @@ impl QuantumRegister {
         self.collapsed = Cell::new(true);
 
         // Algorithm:
-        // 1) we choose a random float between 0 and 1
-        // 2) we partition [0, 1 + epsilon) using the ket coefficient square modulii
+        // 1) we choose a random float between `0` and `1`
+        // 2) we partition `[0, 1 + epsilon)` using the ket coefficient square modulii
         // 3) we randomly choose a coefficient
         // 4) we return the matching state
 
@@ -126,7 +126,7 @@ fn double_collapse_test() {
     r.collapse();
 }
 
-/// Represents a non-quantum register of _width()_ bits.
+/// Represents a non-quantum register of `width()` bits.
 ///
 /// We store this inefficiently for clarity.
 #[derive(Debug, Eq, PartialEq)]
@@ -146,9 +146,9 @@ impl ClassicalRegister {
         ClassicalRegister { bits: bits }
     }
 
-    /// Construct a new non-quantum register, given a _state_.
+    /// Construct a new non-quantum register, given a `state`.
     ///
-    /// See the _state()_ method documentation for details of the encoding.
+    /// See the `state()` method documentation for details of the encoding.
     ///
     /// # Panics
     ///
@@ -178,7 +178,7 @@ impl ClassicalRegister {
 
     /// Construct a new non-quantum register, given an unsigned integer.
     ///
-    /// See the _state()_ method documentation for details of the encoding.
+    /// See the `state()` method documentation for details of the encoding.
     ///
     /// # Panics
     ///
@@ -188,19 +188,19 @@ impl ClassicalRegister {
         ClassicalRegister::from_state(width, int)
     }
 
-    /// Construct zeroe-initialized non-quantum register of given width.
+    /// Construct zero-initialized non-quantum register of given `width`.
     pub fn zeroed(width: usize) -> ClassicalRegister {
         ClassicalRegister::new(vec![0; width])
     }
 
-    /// Compute the register's width.
+    /// Compute the register's `width`.
     pub fn width(&self) -> usize {
         self.bits.len()
     }
 
-    /// Compute the current _state_ of the register.
+    /// Compute the current `state` of the register.
     ///
-    /// The _state_ is an integer which uniquely specifies all register bits (for a
+    /// The `state` is an integer which uniquely specifies all register bits (for a
     /// given width).  It does this in the obvious way, by enumerating all _2^n_ bit
     /// strings in the reversed lexicographic order, and assigning each string an index.
     ///
@@ -209,7 +209,7 @@ impl ClassicalRegister {
     ///
     /// # Panics
     ///
-    /// This only works for registers of width <= 32.
+    /// This only works for registers of `width <= 32`.
     pub fn state(&self) -> u32 {
         let mut state = 0u32;
 
@@ -224,7 +224,7 @@ impl ClassicalRegister {
 
     /// Return the integer represented by this register.
     ///
-    /// See the _state()_ method documentation for details of the encoding.
+    /// See the `state()` method documentation for details of the encoding.
     pub fn to_int(&self) -> u32 {
         self.state()
     }

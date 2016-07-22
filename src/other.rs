@@ -1,9 +1,11 @@
 //! (public for pedagogical reasons).
 
+/// Convenience macros for qubit module.
 mod macros {
     #![macro_use]
 
     /// Square a numeric value efficiently by multiplying it with itself.
+    #[macro_export]
     macro_rules! square {
         ($x:expr) => {
             $x * $x
@@ -11,6 +13,7 @@ mod macros {
     }
 
     /// Compute a complex number's absolute value, i.e. _|x + iy|^2_.
+    #[macro_export]
     macro_rules! abs_square {
         ($re:expr, $im:expr) => {
             square!($re) + square!($im)
@@ -18,25 +21,28 @@ mod macros {
     }
 }
 
-mod qubit {
+/// Single qubit library code.
+pub mod qubit {
     use float_cmp::ApproxEqUlps;
 
-    /// Represents a single (pure, not entangled) qubit state of the form _a|0> + b|1>_.
+    /// Represents a single (pure, not entangled) qubit state of the form `a|0> + b|1>`.
     ///
-    /// The qubit is the linear superposition of the computational basis of _|0>_ and _|1>_
+    /// The qubit is the linear superposition of the computational basis of `|0>_ and _|1>`.
     ///
     /// We encode the complex coeffients as tuples of their real and imaginary parts,
     /// each represented as a 64-bit floating points.  This gives high accuracy, while
     /// allowing word-size arithmetic on 64-bit systems.
     ///
     /// The theoretical state should always satisfy the equations:
-    ///  * _a = a_re + i * a_im_
-    ///  * _b = b_re + i * b_im_
-    ///  * _1 = |a|^2+ |b|^2_
+    ///
+    ///  - `a = a_re + i * a_im`
+    ///  - `b = b_re + i * b_im`
+    ///  - `1 = |a|^2+ |b|^2`
     ///
     /// This representation of that state should approximately satisfy them, subject to floating
     /// point imprecision.
-    struct NonEntangledQubit {
+    #[derive(Clone, Copy, Debug)]
+    pub struct NonEntangledQubit {
         a_re: f64,
         a_im: f64,
         b_re: f64,
@@ -47,7 +53,7 @@ mod qubit {
         /// Safely construct a qubit, given the real and imaginary parts of both coefficients.
         ///
         /// This function validates that the given state is possible.
-        fn new(a_re: f64, a_im: f64, b_re: f64, b_im: f64) -> NonEntangledQubit {
+        pub fn new(a_re: f64, a_im: f64, b_re: f64, b_im: f64) -> NonEntangledQubit {
             let candidate = NonEntangledQubit {
                 a_re: a_re,
                 a_im: a_im,
@@ -62,12 +68,12 @@ mod qubit {
 
         /// Validate that this qubit's state is possible.
         ///
-        /// In our imperfect floating point model, this means computing _|a|^2+ |b|^2_ and
-        /// comparing it to _1_ with some leeway.
+        /// In our imperfect floating point model, this means computing `|a|^2+ |b|^2` and
+        /// comparing it to `1` with some leeway.
         ///
         /// That leeway is arbitrarily chosen as 10 units of least precision.
         #[cfg(not(feature = "optimize"))]
-        fn validate(&self) -> bool {
+        pub fn validate(&self) -> bool {
             let sample_space_sum: f64 = abs_square!(self.a_re, self.a_im) +
                                         abs_square!(self.b_re, self.b_im);
 
@@ -77,7 +83,7 @@ mod qubit {
         /// Skip state validation for speed.
         #[cfg(feature = "optimize")]
         #[inline(always)]
-        fn validate(&self) -> bool {
+        pub fn validate(&self) -> bool {
             true
         }
     }

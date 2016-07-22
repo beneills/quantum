@@ -5,7 +5,7 @@ use matrix::Matrix;
 
 /// Represents a _quantum gate_: a quantum regster transformation.
 ///
-/// This gate is tagged with a width, and contains a unitary matrix
+/// This gate is tagged with a `width`, and contains a unitary matrix
 /// representing the numerical transformation in the computational
 /// basis.
 ///
@@ -22,13 +22,13 @@ pub struct Gate {
 }
 
 impl Gate {
-    /// Construct a new quantum gate, given _width_ and computational basis matrix.
+    /// Construct a new quantum gate, given `width` and computational basis matrix.
     ///
     /// Currently we do not check whether the matrix is unitary.
     ///
     /// # Panics
     ///
-    /// We panic if the supplied matrix is non-square or not of dimension _width_.
+    /// We panic if the supplied matrix is non-square or not of dimension `width`.
     pub fn new(width: usize, matrix: Matrix) -> Gate {
         assert_eq!(Ket::size(width), matrix.size());
 

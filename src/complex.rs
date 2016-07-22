@@ -6,7 +6,7 @@ use std::ops::Add;
 use std::ops::AddAssign;
 use std::ops::Mul;
 
-/// Holds a complex number with 64 bit float parts.
+/// Holds a complex number with 64-bit float parts.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Complex {
     re: f64,
@@ -14,7 +14,7 @@ pub struct Complex {
 }
 
 impl Complex {
-    /// Construct a new complex number with 64 bit float parts.
+    /// Construct a new complex number with 64-bit float parts.
     pub fn new(re: f64, im: f64) -> Complex {
         Complex { re: re, im: im }
     }
@@ -24,18 +24,17 @@ impl Complex {
         self.re * self.re + self.im * self.im
     }
 
-    /// Zero in the complex plane, i.e. 0 + 0i.
+    /// Zero in the complex plane, i.e. `0 + 0i`.
     pub fn zero() -> Complex {
         Complex::new(0f64, 0f64)
     }
 
-    /// One in the complex plane, i.e. 1 + 0i.
+    /// One in the complex plane, i.e. `1 + 0i`.
     pub fn one() -> Complex {
         Complex::new(1f64, 0f64)
     }
 }
 
-/// Implement standard complex addition.
 impl Add<Complex> for Complex {
     type Output = Complex;
 
@@ -44,7 +43,6 @@ impl Add<Complex> for Complex {
     }
 }
 
-/// Implement standard complex multiplication.
 impl Mul<Complex> for Complex {
     type Output = Complex;
 
@@ -54,7 +52,6 @@ impl Mul<Complex> for Complex {
     }
 }
 
-/// Implement standard complex addition assignment.
 impl AddAssign for Complex {
     fn add_assign(&mut self, rhs: Complex) {
         *self = *self + rhs;
@@ -62,6 +59,7 @@ impl AddAssign for Complex {
 }
 
 /// Convenience macro for complex number construction.
+#[macro_export]
 macro_rules! c {
     ($re:expr, $im:expr) => {
         Complex::new($re, $im)

@@ -1,4 +1,6 @@
 //! Advanced Rust quantum computer simulator.
+//!
+//! See the code [here](https://github.com/beneills/quantum).
 
 #![deny(missing_docs,
         missing_debug_implementations, missing_copy_implementations,

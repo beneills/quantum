@@ -26,15 +26,15 @@ pub struct QuantumComputer {
     state: State,
     width: usize,
 
-    /// Only makes sense if State::Running == state
+    /// Only makes sense if `State::Running == state`
     register: QuantumRegister,
 
-    /// Only makes sense if State::Collapsed == state
+    /// Only makes sense if `State::Collapsed == state`
     classical: ClassicalRegister,
 }
 
 impl QuantumComputer {
-    /// Construct a new quantum computer with register of given width.
+    /// Construct a new quantum computer with register of given `width`.
     pub fn new(width: usize) -> QuantumComputer {
         QuantumComputer {
             state: State::Initializing,
@@ -48,7 +48,7 @@ impl QuantumComputer {
     ///
     /// # Panics
     ///
-    /// We panic if the state is anything other than state::Initializing.
+    /// We panic if the state is anything other than `State::Initializing`.
     pub fn initialize(&mut self, value: u32) {
         assert_eq!(State::Initializing, self.state);
 
@@ -62,7 +62,7 @@ impl QuantumComputer {
     ///
     /// # Panics
     ///
-    /// We panic if the state is anything other than state::Running.
+    /// We panic if the state is anything other than `State::Running`.
     pub fn apply(&mut self, gate: Gate) {
         assert_eq!(State::Running, self.state);
 
@@ -73,7 +73,7 @@ impl QuantumComputer {
     ///
     /// # Panics
     ///
-    /// We panic if the state is anything other than state::Running.
+    /// We panic if the state is anything other than `State::Running`.
     pub fn collapse(&mut self) {
         assert_eq!(State::Running, self.state);
 
@@ -86,7 +86,7 @@ impl QuantumComputer {
     ///
     /// # Panics
     ///
-    /// We panic if the state is anything other than state::Collapsed.
+    /// We panic if the state is anything other than `State::Collapsed`.
     pub fn reset(&mut self) {
         self.state = State::Initializing;
     }
@@ -95,7 +95,7 @@ impl QuantumComputer {
     ///
     /// # Panics
     ///
-    /// We panic if the state is anything other than state::Collapsed.
+    /// We panic if the state is anything other than `State::Collapsed`.
     pub fn value(&self) -> u32 {
         assert_eq!(State::Collapsed, self.state);
 

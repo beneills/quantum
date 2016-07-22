@@ -1,8 +1,6 @@
-# quantum
-[![Build Status](https://travis-ci.org/beneills/quantum.svg?branch=master)](https://travis-ci.org/beneills/quantum)
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+# quantum [![Build Status](https://travis-ci.org/beneills/quantum.svg?branch=master)](https://travis-ci.org/beneills/quantum) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
-Advanced Rust quantum computer simulator.
+_Advanced Rust quantum computer simulator._
 
 ## Motivation
 
@@ -16,8 +14,13 @@ Quantum is a quantum computer simulator written with the following design goals 
 
 4) __Correctness:__ it's entirely written in safe Rust with well-defined states.
 
+A good place to start reading the theory behind this is the [Wikipedia article](https://en.wikipedia.org/wiki/Quantum_computing#Mechanics), and you can follow the documentation for our implementations of
 
-A good place to start reading the theory behind this is the [Wikipedia article](https://en.wikipedia.org/wiki/Quantum_computing#Mechanics).
+[gates](https://beneills.github.io/quantum/quantum/gate/struct.Gate.html)
+[kets](https://beneills.github.io/quantum/quantum/ket/struct.Ket.html)
+
+[](https://beneills.github.io/quantum/quantum/other/qubit/index.html)
+.
 
 ## Usage
 

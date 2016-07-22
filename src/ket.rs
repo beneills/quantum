@@ -10,11 +10,11 @@ use registers::ClassicalRegister;
 /// A ket describes the state of a quantum register.
 ///
 /// We choose to always use kets as coefficients for linear combinations of
-/// the _computational basis_.  A register or width _n_ corresponds to a ket
+/// the _computational basis_.  A register of width `n` corresponds to a ket
 /// of size _2^n_.  Theoretically, the sum of the square coefficient moduli
-/// must equal 1.
+/// must equal `1`.
 ///
-/// We store the elements (left-aligned) in an array of size _MAX_SIZE_, with
+/// We store the elements (left-aligned) in an array of size `MAX_SIZE`, with
 /// the unused slots set to zero.
 ///
 /// See [Wikipedia](https://en.wikipedia.org/wiki/Bra%E2%80%93ket_notation) for
@@ -63,7 +63,7 @@ impl Ket {
     /// Determine whether this ket represents a classically possible state.
     ///
     /// This is true iff. the ket encodes a single basis vector, meaning that
-    /// precisely one slot will have value _1_, and all others _0_.
+    /// precisely one slot will have value `1`, and all others `0`.
     #[allow(unused)]
     pub fn is_classical(&self) -> bool {
         assert!(self.is_valid());

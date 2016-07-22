@@ -14,12 +14,12 @@ const MAX_ELEMENTS: usize = MAX_SIZE * MAX_SIZE;
 /// Efficient array of complex numbers.
 pub type Vector = [Complex; MAX_SIZE];
 
-/// Represents a square matrix over C of maximum size _MAX_SIZE_.
+/// Represents a square matrix over C of maximum size `MAX_SIZE`.
 ///
-/// Each element is an instance of _Complex_, and we store the elements
-/// internally in an array of size _MAX_SIZE^2 * sizeof(Complex)_.
+/// Each element is an instance of `Complex`, and we store the elements
+/// internally in an array of size `MAX_SIZE^2 * sizeof(Complex)`.
 ///
-/// In practice, this means each matrix occupies around 16KiB.
+/// In practice, this means each matrix occupies around `16KiB`.
 #[allow(missing_copy_implementations)]
 pub struct Matrix {
     size: usize,
@@ -31,7 +31,7 @@ impl Matrix {
     ///
     /// # Panics
     ///
-    /// We panic if the given size exceeds _MAX_SIZE_.
+    /// We panic if the given size exceeds `MAX_SIZE`.
     pub fn new(size: usize) -> Matrix {
         assert!(size <= MAX_SIZE);
 
@@ -45,7 +45,7 @@ impl Matrix {
     ///
     /// # Panics
     ///
-    /// We panic if the given size exceeds _MAX_SIZE_.
+    /// We panic if the given size exceeds `MAX_SIZE`.
     pub fn identity(size: usize) -> Matrix {
         assert!(size <= MAX_SIZE);
 
@@ -66,25 +66,23 @@ impl Matrix {
         self.size
     }
 
-    /// Get the element in position _(i, j)_.
+    /// Get the element in position `(i, j)`.
     pub fn get(self: &Matrix, i: usize, j: usize) -> Complex {
         self.elements[i * MAX_SIZE + j]
     }
 
-    /// Set the element in position _(i, j)_ to _value_.
+    /// Set the element in position `(i, j)` to `value`.
     pub fn set(self: &mut Matrix, i: usize, j: usize, value: Complex) {
         self.elements[i * MAX_SIZE + j] = value
     }
 }
 
-/// Display the matrix for debug purposes.
 impl fmt::Debug for Matrix {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "Matrix(size={}, elements=...)", self.size)
     }
 }
 
-/// Implement matrix equality comparison.
 impl PartialEq for Matrix {
     fn eq(&self, other: &Matrix) -> bool {
         assert_eq!(self.size, other.size);
@@ -99,7 +97,6 @@ impl PartialEq for Matrix {
     }
 }
 
-/// Implement standard matrix addition.
 impl<'a> Add<&'a Matrix> for &'a Matrix {
     type Output = Matrix;
 
@@ -118,7 +115,6 @@ impl<'a> Add<&'a Matrix> for &'a Matrix {
     }
 }
 
-/// Implement standard matrix multiplication.
 impl<'a> Mul<&'a Matrix> for &'a Matrix {
     type Output = Matrix;
 
@@ -143,12 +139,12 @@ impl<'a> Mul<&'a Matrix> for &'a Matrix {
     }
 }
 
-/// Implement standard matrix vector multiplication.
+/// Implements standard matrix vector multiplication.
 ///
 /// # Panics
 ///
 /// We panic if the vector contains non-zero elements in
-/// positions _self.size_ or beyond.
+/// positions `self.size` or beyond.
 impl<'a> Mul<&'a Vector> for &'a Matrix {
     type Output = Vector;
 
