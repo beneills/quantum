@@ -15,9 +15,14 @@ pub struct Complex {
 }
 
 impl Complex {
-    /// Construct a new complex number with 64-bit float parts.
+    /// Construct a new complex number as `re + im * i` with 64-bit float parts.
     pub fn new(re: f64, im: f64) -> Complex {
         Complex { re: re, im: im }
+    }
+
+    /// Construct a new complex number as `r * exp(i * phi)` with 64-bit float parts.
+    pub fn new_euler(r: f64, phi: f64) -> Complex {
+        Complex { re: r * phi.cos(), im: r * phi.sin() }
     }
 
     /// Compute the square of the norm/absolute value, i.e. _|z|^2_.
