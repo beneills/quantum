@@ -30,6 +30,48 @@ pub fn hadamard() -> Gate {
     Gate::new(1, m)
 }
 
+/// The Pauli-X gate.
+///
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Pauli-X_gate)
+/// for more information.
+#[allow(unused)]
+pub fn pauli_x() -> Gate {
+    let m = m![Complex::zero(),
+               Complex::one(),
+               Complex::one(),
+               Complex::zero()];
+
+    Gate::new(1, m)
+}
+
+/// The Pauli-Y gate.
+///
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Pauli-Y_gate)
+/// for more information.
+#[allow(unused)]
+pub fn pauli_y() -> Gate {
+    let m = m![Complex::zero(),
+               -Complex::i(),
+               Complex::i(),
+               Complex::zero()];
+
+    Gate::new(1, m)
+}
+
+/// The Pauli-Z gate.
+///
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Pauli-Z_gate)
+/// for more information.
+#[allow(unused)]
+pub fn pauli_z() -> Gate {
+    let m = m![Complex::one(),
+               Complex::zero(),
+               Complex::zero(),
+               -Complex::one()];
+
+    Gate::new(1, m)
+}
+
 #[test]
 fn identity_test() {
     use complex::Complex;
@@ -70,4 +112,64 @@ fn hadamard_test() {
     }
 
     assert!( ones <= 600 && 400 <= ones)
+}
+
+#[test]
+fn pauli_x_test() {
+    use computer::QuantumComputer;
+
+    let mut c = QuantumComputer::new(1);
+
+    // |0> goes to |1>
+    c.initialize(0);
+    c.apply(pauli_y());
+    c.collapse();
+    assert_eq!(1, c.value());
+    c.reset();
+
+    // |1> goes to |0>
+    c.initialize(1);
+    c.apply(pauli_y());
+    c.collapse();
+    assert_eq!(0, c.value());
+}
+
+#[test]
+fn pauli_y_test() {
+    use computer::QuantumComputer;
+
+    let mut c = QuantumComputer::new(1);
+
+    // |0> goes to i|1>
+    c.initialize(0);
+    c.apply(pauli_y());
+    c.collapse();
+    assert_eq!(1, c.value());
+    c.reset();
+
+    // |1> goes to -i|0>
+    c.initialize(1);
+    c.apply(pauli_y());
+    c.collapse();
+    assert_eq!(0, c.value());
+}
+
+#[test]
+fn pauli_z_test() {
+    use computer::QuantumComputer;
+
+    let mut c = QuantumComputer::new(1);
+
+    // |0> goes to |0>
+    c.initialize(0);
+    c.apply(pauli_z());
+    c.collapse();
+    assert_eq!(0, c.value());
+    c.reset();
+
+    // |1> goes to -|1>
+    c.initialize(1);
+    c.apply(pauli_z());
+    c.collapse();
+    assert_eq!(1, c.value());
 }

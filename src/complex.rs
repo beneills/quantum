@@ -34,6 +34,11 @@ impl Complex {
     pub fn one() -> Complex {
         Complex::new(1f64, 0f64)
     }
+
+    /// The imaginary unit.
+    pub fn i() -> Complex {
+        Complex::new(0f64, 1f64)
+    }
 }
 
 /// Convenience macro for complex number construction.
