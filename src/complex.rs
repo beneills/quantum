@@ -1,7 +1,5 @@
 //! Complex number library code (public for pedagogical reasons).
 
-#![macro_use]
-
 use std::ops::Add;
 use std::ops::AddAssign;
 use std::ops::Mul;
@@ -44,14 +42,6 @@ impl Complex {
     pub fn i() -> Complex {
         Complex::new(0f64, 1f64)
     }
-}
-
-/// Convenience macro for complex number construction.
-#[macro_export]
-macro_rules! c {
-    ($re:expr, $im:expr) => {
-        Complex::new($re, $im)
-    };
 }
 
 impl Add<Complex> for Complex {

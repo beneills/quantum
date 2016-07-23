@@ -1,7 +1,5 @@
 //! Matrix library code (public for pedagogical reasons).
 
-#![macro_use]
-
 use std::fmt;
 use std::ops::Add;
 use std::ops::Mul;
@@ -170,22 +168,6 @@ impl<'a> Mul<&'a Vector> for &'a Matrix {
 
         output
     }
-}
-
-/// Convenience macro for 2x2 matrix construction.
-#[macro_export]
-macro_rules! m {
-    ($a:expr, $b:expr, $c:expr, $d:expr) => {
-        {
-            let mut m = Matrix::new(2);
-            m.set(0, 0, $a);
-            m.set(0, 1, $b);
-            m.set(1, 0, $c);
-            m.set(1, 1, $d);
-
-            m
-        }
-    };
 }
 
 #[test]
