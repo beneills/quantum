@@ -1,5 +1,7 @@
 //! Matrix library code (public for pedagogical reasons).
 
+#![macro_use]
+
 use std::fmt;
 use std::ops::Add;
 use std::ops::Mul;
@@ -170,13 +172,28 @@ impl<'a> Mul<&'a Vector> for &'a Matrix {
     }
 }
 
+/// Convenience macro for 2x2 matrix construction.
+#[macro_export]
+macro_rules! m {
+    ($a:expr, $b:expr, $c:expr, $d:expr) => {
+        {
+            let mut m = Matrix::new(2);
+            m.set(0, 0, $a);
+            m.set(0, 1, $b);
+            m.set(1, 0, $c);
+            m.set(1, 1, $d);
+
+            m
+        }
+    };
+}
+
 #[test]
 fn matrix_test() {
-    let mut m = Matrix::new(2);
-    m.set(0, 0, Complex::new(1f64, 0f64));
-    m.set(0, 1, Complex::new(2f64, 0f64));
-    m.set(1, 0, Complex::new(3f64, 0f64));
-    m.set(1, 1, Complex::new(4f64, 0f64));
+    let mut m = m![Complex::new(1f64, 0f64),
+                   Complex::new(2f64, 0f64),
+                   Complex::new(3f64, 0f64),
+                   Complex::new(4f64, 0f64)];
 
     let mut v: Vector = [Complex::zero(); MAX_SIZE];
     v[0] = Complex::new(10f64, 0f64);
@@ -186,17 +203,15 @@ fn matrix_test() {
     expected[0] = Complex::new(50f64, 0f64);
     expected[1] = Complex::new(110f64, 0f64);
 
-    let mut added = Matrix::new(2);
-    added.set(0, 0, Complex::new(2f64, 0f64));
-    added.set(0, 1, Complex::new(4f64, 0f64));
-    added.set(1, 0, Complex::new(6f64, 0f64));
-    added.set(1, 1, Complex::new(8f64, 0f64));
+    let mut added = m![Complex::new(2f64, 0f64),
+                       Complex::new(4f64, 0f64),
+                       Complex::new(6f64, 0f64),
+                       Complex::new(8f64, 0f64)];
 
-    let mut squared = Matrix::new(2);
-    squared.set(0, 0, Complex::new(7f64, 0f64));
-    squared.set(0, 1, Complex::new(10f64, 0f64));
-    squared.set(1, 0, Complex::new(15f64, 0f64));
-    squared.set(1, 1, Complex::new(22f64, 0f64));
+    let mut squared = m![Complex::new(7f64, 0f64),
+                         Complex::new(10f64, 0f64),
+                         Complex::new(15f64, 0f64),
+                         Complex::new(22f64, 0f64)];
 
     assert_eq!(added, &m + &m);
     assert_eq!(squared, &m * &m);
