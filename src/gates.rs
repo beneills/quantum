@@ -18,14 +18,12 @@ pub fn identity(width: usize) -> Gate {
 ///
 /// See [Wikipedia](https://en.wikipedia.org/wiki/Hadamard_transform#Quantum_computing_applications)
 /// for more information.
-#[allow(unused)]
+#[allow(unused, trivial_numeric_casts)]
 pub fn hadamard() -> Gate {
-    let sqrt2inv = c![2.0f64.sqrt().recip(), 0f64];
+    let sqrt2inv = 2.0f64.sqrt().recip();
 
-    let mut m = m![sqrt2inv,
-                   sqrt2inv;
-                   sqrt2inv,
-                   -sqrt2inv];
+    let mut m = m_real![sqrt2inv,  sqrt2inv;
+                        sqrt2inv, -sqrt2inv];
 
     Gate::new(1, m)
 }
@@ -36,10 +34,8 @@ pub fn hadamard() -> Gate {
 /// for more information.
 #[allow(unused)]
 pub fn pauli_x() -> Gate {
-    let m = m![Complex::zero(),
-               Complex::one();
-               Complex::one(),
-               Complex::zero()];
+    let m = m_real![0, 1;
+                    1, 0];
 
     Gate::new(1, m)
 }
@@ -64,10 +60,8 @@ pub fn pauli_y() -> Gate {
 /// for more information.
 #[allow(unused)]
 pub fn pauli_z() -> Gate {
-    let m = m![Complex::one(),
-               Complex::zero();
-               Complex::zero(),
-               -Complex::one()];
+    let m = m_real![1,  0;
+                    0, -1];
 
     Gate::new(1, m)
 }
@@ -84,6 +78,22 @@ pub fn phase_shift(phi: f64) -> Gate {
                Complex::new_euler(1f64, phi)];
 
     Gate::new(1, m)
+}
+
+/// The two qubit swap gate.
+///
+/// This swaps the value of the first and second qubit.
+///
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Swap_gate)
+/// for more information.
+#[allow(unused)]
+pub fn swap() -> Gate {
+    let m = m_real![1, 0, 0, 0;
+                    0, 0, 1, 0;
+                    0, 1, 0, 0;
+                    0, 0, 0, 1];
+
+    Gate::new(2, m)
 }
 
 #[test]
@@ -205,6 +215,26 @@ fn phase_shift_test() {
     // |1> goes to exp(i * phi)|1>
     c.initialize(1);
     c.apply(phase_shift(phi));
+    c.collapse();
+    assert_eq!(1, c.value());
+}
+
+#[test]
+fn swap_test() {
+    use computer::QuantumComputer;
+
+    let mut c = QuantumComputer::new(2);
+
+    // |00> goes to |00>
+    c.initialize(0);
+    c.apply(swap());
+    c.collapse();
+    assert_eq!(0, c.value());
+    c.reset();
+
+    // |01> goes to |10>
+    c.initialize(2);
+    c.apply(swap());
     c.collapse();
     assert_eq!(1, c.value());
 }
