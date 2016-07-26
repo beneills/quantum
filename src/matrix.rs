@@ -190,28 +190,19 @@ impl<'a> Mul<&'a Vector> for &'a Matrix {
 
 #[test]
 fn matrix_test() {
-    let mut m = m![Complex::new(1f64, 0f64),
-                   Complex::new(2f64, 0f64);
-                   Complex::new(3f64, 0f64),
-                   Complex::new(4f64, 0f64)];
+   let mut m = m_real![1, 2; 3, 4];
 
     let mut v: Vector = [Complex::zero(); MAX_SIZE];
-    v[0] = Complex::new(10f64, 0f64);
-    v[1] = Complex::new(20f64, 0f64);
+    v[0] = c!(10f64, 0f64);
+    v[1] = c!(20f64, 0f64);
 
     let mut expected: Vector = [Complex::zero(); MAX_SIZE];
-    expected[0] = Complex::new(50f64, 0f64);
-    expected[1] = Complex::new(110f64, 0f64);
+    expected[0] = c!(50f64, 0f64);
+    expected[1] = c!(110f64, 0f64);
 
-    let mut added = m![Complex::new(2f64, 0f64),
-                       Complex::new(4f64, 0f64);
-                       Complex::new(6f64, 0f64),
-                       Complex::new(8f64, 0f64)];
+    let mut added = m_real![2, 4; 6, 8];
 
-    let mut squared = m![Complex::new(7f64, 0f64),
-                         Complex::new(10f64, 0f64);
-                         Complex::new(15f64, 0f64),
-                         Complex::new(22f64, 0f64)];
+    let mut squared = m_real![7, 10; 15, 22];
 
     assert_eq!(added, &m + &m);
     assert_eq!(squared, &m * &m);
