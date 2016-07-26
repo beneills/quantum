@@ -23,7 +23,7 @@ pub fn hadamard() -> Gate {
     let sqrt2inv = c![2.0f64.sqrt().recip(), 0f64];
 
     let mut m = m![sqrt2inv,
-                   sqrt2inv,
+                   sqrt2inv;
                    sqrt2inv,
                    -sqrt2inv];
 
@@ -37,7 +37,7 @@ pub fn hadamard() -> Gate {
 #[allow(unused)]
 pub fn pauli_x() -> Gate {
     let m = m![Complex::zero(),
-               Complex::one(),
+               Complex::one();
                Complex::one(),
                Complex::zero()];
 
@@ -51,7 +51,7 @@ pub fn pauli_x() -> Gate {
 #[allow(unused)]
 pub fn pauli_y() -> Gate {
     let m = m![Complex::zero(),
-               -Complex::i(),
+               -Complex::i();
                Complex::i(),
                Complex::zero()];
 
@@ -65,7 +65,7 @@ pub fn pauli_y() -> Gate {
 #[allow(unused)]
 pub fn pauli_z() -> Gate {
     let m = m![Complex::one(),
-               Complex::zero(),
+               Complex::zero();
                Complex::zero(),
                -Complex::one()];
 
@@ -79,7 +79,7 @@ pub fn pauli_z() -> Gate {
 #[allow(unused)]
 pub fn phase_shift(phi: f64) -> Gate {
     let m = m![Complex::one(),
-               Complex::zero(),
+               Complex::zero();
                Complex::zero(),
                Complex::new_euler(1f64, phi)];
 

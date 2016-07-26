@@ -10,18 +10,30 @@ macro_rules! c {
     };
 }
 
-/// Convenience macro for 2x2 matrix construction.
+/// Internal helper macro for matrix constuction.
+macro_rules! m_one {
+  ( $item:tt ) => ( 1 )
+}
+
+/// Internal helper macro for matrix constuction.
+macro_rules! m_rec(
+  ( [ $($row:tt),* ] [$($i:expr),*]) => ({
+     let _rows = 0 $(+ m_one!($row) )*;
+     let _cols = (0 $(+ m_one!($i))*) / _rows;
+
+     assert_eq!(_rows, _cols);
+
+     Matrix::new_from_elements(_rows, vec![$($i),*])
+  })
+);
+
+/// Convenience macro for matrix constuction.
+///
+/// We could make this more efficient by pattern matching on the five sizes and passing
+/// arrays to a constructor.
+///
+/// Adapted from [rust-la](https://github.com/xasmx/rust-la/blob/master/src/mac$
 #[macro_export]
 macro_rules! m {
-    ($a:expr, $b:expr, $c:expr, $d:expr) => {
-        {
-            let mut m = Matrix::new(2);
-            m.set(0, 0, $a);
-            m.set(0, 1, $b);
-            m.set(1, 0, $c);
-            m.set(1, 1, $d);
-
-            m
-        }
-    };
+  ( $( $( $i:expr ),* );* ) => ( m_rec!([$([$($i),*]),*] [$($($i),*),*]) )
 }

@@ -41,6 +41,24 @@ impl Matrix {
         }
     }
 
+    /// Construct a new matrix of given size from elements.
+    ///
+    /// # Panics
+    ///
+    /// We panic if the given size exceeds `MAX_SIZE`.
+    pub fn new_from_elements(size: usize, elements: Vec<Complex>) -> Matrix {
+        assert!(size <= MAX_SIZE);
+        assert!(size * size == elements.len());
+
+        let mut m = Matrix::new(size);
+
+        for (i, elem) in elements.iter().enumerate() {
+            m.set(i / size, i % size, *elem);
+        }
+
+        m
+    }
+
     /// Construct a new identity matrix of given size.
     ///
     /// # Panics
@@ -173,7 +191,7 @@ impl<'a> Mul<&'a Vector> for &'a Matrix {
 #[test]
 fn matrix_test() {
     let mut m = m![Complex::new(1f64, 0f64),
-                   Complex::new(2f64, 0f64),
+                   Complex::new(2f64, 0f64);
                    Complex::new(3f64, 0f64),
                    Complex::new(4f64, 0f64)];
 
@@ -186,12 +204,12 @@ fn matrix_test() {
     expected[1] = Complex::new(110f64, 0f64);
 
     let mut added = m![Complex::new(2f64, 0f64),
-                       Complex::new(4f64, 0f64),
+                       Complex::new(4f64, 0f64);
                        Complex::new(6f64, 0f64),
                        Complex::new(8f64, 0f64)];
 
     let mut squared = m![Complex::new(7f64, 0f64),
-                         Complex::new(10f64, 0f64),
+                         Complex::new(10f64, 0f64);
                          Complex::new(15f64, 0f64),
                          Complex::new(22f64, 0f64)];
 
