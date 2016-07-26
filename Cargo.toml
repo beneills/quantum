@@ -1,6 +1,6 @@
 [package]
 name = "quantum"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Ben Eills <ben@beneills.com>"]
 repository = "https://github.com/beneills/quantum.git"
 homepage = "https://github.com/beneills/quantum/"

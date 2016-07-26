@@ -22,7 +22,7 @@ A good place to start reading the theory behind this is the [Wikipedia article](
 # Cargo.toml
 
 [dependencies]
-quantum = "0.1.1"
+quantum = "0.1.2"
 ```
 
 ```rust
