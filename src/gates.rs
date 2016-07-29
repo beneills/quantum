@@ -139,7 +139,7 @@ pub fn controlled_not() -> Gate {
 ///
 /// # Panics
 ///
-/// We panic if this supplied matrix isn;t of size 2x2.
+/// We panic if this supplied matrix isn't of size 2x2.
 #[allow(unused)]
 pub fn controlled(u: &Matrix) -> Gate {
     assert_eq!(2, u.size());
@@ -152,6 +152,34 @@ pub fn controlled(u: &Matrix) -> Gate {
     m.embed(&u, 2, 2);
     Gate::new(2, m)
 }
+
+/// The two qubit controlled-X gate.
+///
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Controlled_gates)
+/// for more information.
+#[allow(unused)]
+pub fn controlled_x() -> Gate {
+    controlled(pauli_x().matrix())
+}
+
+/// The two qubit controlled-Y gate.
+///
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Controlled_gates)
+/// for more information.
+#[allow(unused)]
+pub fn controlled_y() -> Gate {
+    controlled(pauli_y().matrix())
+}
+
+/// The two qubit controlled-Z gate.
+///
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Controlled_gates)
+/// for more information.
+#[allow(unused)]
+pub fn controlled_z() -> Gate {
+    controlled(pauli_z().matrix())
+}
+
 
 /// Convenience macro for testing a quantum gate.
 macro_rules! test_gate {
