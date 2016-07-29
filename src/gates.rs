@@ -181,7 +181,7 @@ pub fn controlled_z() -> Gate {
     controlled(pauli_z().matrix())
 }
 
-/// The three qubit toffoli gate.
+/// The three qubit Toffoli gate.
 ///
 /// If the first two bits are in the state |1> , it applies a Pauli-X on the third bit,
 /// else it does nothing.
@@ -196,6 +196,24 @@ pub fn toffoli() -> Gate {
                                1, 0];
 
     m.embed(&exchange, 6, 6);
+
+    Gate::new(3, m)
+}
+
+/// The three qubit Fredkin gate.
+///
+/// performs a controlled swap.
+///
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Fredkin_gate)
+/// for more information.
+#[allow(unused)]
+pub fn fredkin() -> Gate {
+    let mut m = Matrix::identity(8);
+
+    let mut exchange = m_real![0, 1;
+                               1, 0];
+
+    m.embed(&exchange, 5, 5);
 
     Gate::new(3, m)
 }
@@ -375,4 +393,23 @@ fn toffoli_test() {
 
     // |111> goes to |011>
     test_gate!(c, toffoli(), 7, 6);
+}
+
+#[test]
+fn fredkin_test() {
+    use computer::QuantumComputer;
+
+    let mut c = QuantumComputer::new(3);
+
+    // |000> goes to |000>
+    test_gate!(c, fredkin(), 0, 0);
+
+    // |101> goes to |011>
+    test_gate!(c, fredkin(), 5, 6);
+
+    // |011> goes to |101>
+    test_gate!(c, fredkin(), 6, 5);
+
+    // |111> goes to |111>
+    test_gate!(c, fredkin(), 7, 7);
 }
