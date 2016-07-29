@@ -22,7 +22,7 @@ A good place to start reading the theory behind this is the [Wikipedia article](
 # Cargo.toml
 
 [dependencies]
-quantum = "0.1.2"
+quantum = "0.1.3"
 ```
 
 ```rust
@@ -46,6 +46,26 @@ c2.collapse();
 let result = if 1 == c2.value() { "heads" } else { "tails" };
 println!("coin flip: {}", result);
 ```
+
+## Gates
+
+We provide the following quantum gates:
+
++ _Identity_
++ _Hadamard_
++ _Pauli-X_
++ _Pauli-Y_
++	_Pauli-Z_
++	_Phase Shifts_
++	_Swap_
++	_Sqrt(Swap)_
++	_Controlled Not_
++ _General Controlled-U_
++ _Controlled-X_
++ _Controlled-Y_
++ _Controlled-Z_
++	_Toffoli_
++	_Fredkin_
 
 ## Contributing
 
