@@ -150,6 +150,7 @@ pub fn controlled(u: &Matrix) -> Gate {
                         0, 0, 0, 0];
 
     m.embed(&u, 2, 2);
+
     Gate::new(2, m)
 }
 
@@ -180,6 +181,24 @@ pub fn controlled_z() -> Gate {
     controlled(pauli_z().matrix())
 }
 
+/// The three qubit toffoli gate.
+///
+/// If the first two bits are in the state |1> , it applies a Pauli-X on the third bit,
+/// else it does nothing.
+///
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Toffoli_gate)
+/// for more information.
+#[allow(unused)]
+pub fn toffoli() -> Gate {
+    let mut m = Matrix::identity(8);
+
+    let mut exchange = m_real![0, 1;
+                               1, 0];
+
+    m.embed(&exchange, 6, 6);
+
+    Gate::new(3, m)
+}
 
 /// Convenience macro for testing a quantum gate.
 macro_rules! test_gate {
@@ -337,4 +356,23 @@ fn controlled_test() {
     let g = controlled(&m_real![0, 1; 1, 0]);
 
     assert_eq!(controlled_not(), g);
+}
+
+#[test]
+fn toffoli_test() {
+    use computer::QuantumComputer;
+
+    let mut c = QuantumComputer::new(3);
+
+    // |000> goes to |000>
+    test_gate!(c, toffoli(), 0, 0);
+
+    // |010> goes to |010>
+    test_gate!(c, toffoli(), 2, 2);
+
+    // |011> goes to |111>
+    test_gate!(c, toffoli(), 6, 7);
+
+    // |111> goes to |011>
+    test_gate!(c, toffoli(), 7, 6);
 }
