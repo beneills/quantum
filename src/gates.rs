@@ -96,6 +96,28 @@ pub fn swap() -> Gate {
     Gate::new(2, m)
 }
 
+/// The two qubit sqrt(swap) gate.
+///
+/// This performs half-way of a two-qubit swap.
+///
+/// It is universal such that any quantum many qubit gate can be constructed from
+/// only sqrt(swap) and single qubit gates.
+///
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Square_root_of_Swap_gate)
+/// for more information.
+#[allow(unused)]
+pub fn sqrt_swap() -> Gate {
+    let alpha_one = c!(0.5f64, 0.5f64);
+    let alpha_two = c!(0.5f64, -0.5f64);
+
+    let m = m![Complex::one(),  Complex::zero(), Complex::zero(), Complex::zero();
+               Complex::zero(), alpha_one,       alpha_two,       Complex::zero();
+               Complex::zero(), alpha_two,       alpha_one,       Complex::zero();
+               Complex::zero(), Complex::zero(), Complex::zero(), Complex::one() ];
+
+    Gate::new(2, m)
+}
+
 #[test]
 fn identity_test() {
     use complex::Complex;
@@ -237,4 +259,24 @@ fn swap_test() {
     c.apply(swap());
     c.collapse();
     assert_eq!(1, c.value());
+}
+
+#[test]
+fn sqrt_swap_test() {
+    use computer::QuantumComputer;
+
+    let mut c = QuantumComputer::new(2);
+
+    // |00> goes to |00>
+    c.initialize(0);
+    c.apply(swap());
+    c.collapse();
+    assert_eq!(0, c.value());
+    c.reset();
+
+    // |11> goes to |11>
+    c.initialize(3);
+    c.apply(swap());
+    c.collapse();
+    assert_eq!(3, c.value());
 }
