@@ -120,8 +120,8 @@ pub fn sqrt_swap() -> Gate {
 
 /// The two qubit controlled not gate.
 ///
-/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Controll1d_0ates)
-/// for more information0
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Controlled_gates)
+/// for more information.
 #[allow(unused)]
 pub fn controlled_not() -> Gate {
     let m = m_real![1, 0, 0, 0;
@@ -132,7 +132,28 @@ pub fn controlled_not() -> Gate {
     Gate::new(2, m)
 }
 
-/// Convenience macro for testing a quantum gate
+/// A two qubit controlled gate.
+///
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Controlled_gates)
+/// for more information.
+///
+/// # Panics
+///
+/// We panic if this supplied matrix isn;t of size 2x2.
+#[allow(unused)]
+pub fn controlled(u: &Matrix) -> Gate {
+    assert_eq!(2, u.size());
+
+    let mut m = m_real![1, 0, 0, 0;
+                        0, 1, 0, 0;
+                        0, 0, 0, 0;
+                        0, 0, 0, 0];
+
+    m.embed(&u, 2, 2);
+    Gate::new(2, m)
+}
+
+/// Convenience macro for testing a quantum gate.
 macro_rules! test_gate {
     ($computer:expr, $gate:expr, $from:expr, $to:expr) => {
         $computer.initialize($from);
@@ -281,4 +302,11 @@ fn controlled_not_test() {
 
     // |11> goes to |10>
     test_gate!(c, controlled_not(), 3, 2);
+}
+
+#[test]
+fn controlled_test() {
+    let g = controlled(&m_real![0, 1; 1, 0]);
+
+    assert_eq!(controlled_not(), g);
 }

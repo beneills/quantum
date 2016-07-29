@@ -15,7 +15,7 @@ use matrix::Matrix;
 ///
 /// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_computing#Operation)
 /// for more information.
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Gate {
     width: usize,
     matrix: Matrix,
