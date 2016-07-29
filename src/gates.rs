@@ -118,6 +118,20 @@ pub fn sqrt_swap() -> Gate {
     Gate::new(2, m)
 }
 
+/// The two qubit controlled not gate.
+///
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_gate#Controll1d_0ates)
+/// for more information0
+#[allow(unused)]
+pub fn controlled_not() -> Gate {
+    let m = m_real![1, 0, 0, 0;
+                    0, 1, 0, 0;
+                    0, 0, 0, 1;
+                    0, 0, 1, 0];
+
+    Gate::new(2, m)
+}
+
 #[test]
 fn identity_test() {
     use complex::Complex;
@@ -279,4 +293,39 @@ fn sqrt_swap_test() {
     c.apply(swap());
     c.collapse();
     assert_eq!(3, c.value());
+}
+
+#[test]
+fn controlled_not_test() {
+    use computer::QuantumComputer;
+
+    let mut c = QuantumComputer::new(2);
+
+    // |00> goes to |00>
+    c.initialize(0);
+    c.apply(controlled_not());
+    c.collapse();
+    assert_eq!(0, c.value());
+    c.reset();
+
+    // |01> goes to |11>
+    c.initialize(2);
+    c.apply(controlled_not());
+    c.collapse();
+    assert_eq!(3, c.value());
+    c.reset();
+
+    // |10> goes to |10>
+    c.initialize(1);
+    c.apply(controlled_not());
+    c.collapse();
+    assert_eq!(1, c.value());
+    c.reset();
+
+    // |11> goes to |10>
+    c.initialize(3);
+    c.apply(controlled_not());
+    c.collapse();
+    assert_eq!(2, c.value());
+    c.reset();
 }
