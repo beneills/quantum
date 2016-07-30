@@ -86,7 +86,7 @@ impl Matrix {
     /// # Panics
     ///
     /// We panic if this matrix isn't large enough.
-    pub fn embed(self: &mut Matrix, other: &Matrix, i: usize, j: usize) {
+    pub fn embed(&mut self, other: &Matrix, i: usize, j: usize) {
         assert!(i + other.size <= self.size);
         assert!(j + other.size <= self.size);
 
@@ -99,17 +99,17 @@ impl Matrix {
     }
 
     /// Size of the matrix.
-    pub fn size(self: &Matrix) -> usize {
+    pub fn size(&self) -> usize {
         self.size
     }
 
     /// Get the element in position `(i, j)`.
-    pub fn get(self: &Matrix, i: usize, j: usize) -> Complex {
+    pub fn get(&self, i: usize, j: usize) -> Complex {
         self.elements[i * MAX_SIZE + j]
     }
 
     /// Set the element in position `(i, j)` to `value`.
-    pub fn set(self: &mut Matrix, i: usize, j: usize, value: Complex) {
+    pub fn set(&mut self, i: usize, j: usize, value: Complex) {
         self.elements[i * MAX_SIZE + j] = value
     }
 
@@ -121,7 +121,7 @@ impl Matrix {
 
         for i in 0..self.size {
             for j in 0..self.size {
-                if ! self.get(i, j).approx_eq(&other.get(i, j)) {
+                if !self.get(i, j).approx_eq(&other.get(i, j)) {
                     return false;
                 }
             }
@@ -233,7 +233,7 @@ impl<'a> Mul<&'a Vector> for &'a Matrix {
 
 #[test]
 fn matrix_test() {
-   let m = m_real![1, 2; 3, 4];
+    let m = m_real![1, 2; 3, 4];
 
     let mut v: Vector = [Complex::zero(); MAX_SIZE];
     v[0] = c!(10f64, 0f64);
@@ -254,10 +254,10 @@ fn matrix_test() {
 
 #[test]
 fn embed_test() {
-   let mut m = m_real![1, 2; 3, 4];
-   let n = m_real![5];
+    let mut m = m_real![1, 2; 3, 4];
+    let n = m_real![5];
 
-   m.embed(&n, 1, 1);
+    m.embed(&n, 1, 1);
 
-   assert_eq!(m_real![1, 2; 3, 5], m);
+    assert_eq!(m_real![1, 2; 3, 5], m);
 }

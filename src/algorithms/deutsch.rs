@@ -11,7 +11,7 @@ use matrix::Matrix;
 #[derive(Debug, PartialEq)]
 enum DeutschAlgorithmOutput {
     Balanced,
-    Constant
+    Constant,
 }
 
 /// Takes |a, b> to |a, b+f(a)>
@@ -58,7 +58,7 @@ fn deutsch_algorithm(f: fn(i32) -> i32) -> DeutschAlgorithmOutput {
     match c.value() {
         1 => DeutschAlgorithmOutput::Constant,
         3 => DeutschAlgorithmOutput::Balanced,
-        _ => panic!("Unknown error!")
+        _ => panic!("Unknown error!"),
     }
 }
 

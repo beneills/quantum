@@ -24,13 +24,17 @@ pub fn hadamard(n: usize) -> Gate {
 
     let mut m = match n {
         0 => Matrix::identity(1),
-        1 => m_real![sqrt2inv,  sqrt2inv;
-                     sqrt2inv, -sqrt2inv],
-        2 => m_real![0.5,  0.5,  0.5,  0.5;
+        1 => {
+            m_real![sqrt2inv,  sqrt2inv;
+                     sqrt2inv, -sqrt2inv]
+        }
+        2 => {
+            m_real![0.5,  0.5,  0.5,  0.5;
                      0.5, -0.5,  0.5, -0.5;
                      0.5,  0.5, -0.5, -0.5;
-                     0.5, -0.5, -0.5,  0.5],
-        _ => panic!("Cannot compute Hadamard gate of dimension > 3!")
+                     0.5, -0.5, -0.5,  0.5]
+        }
+        _ => panic!("Cannot compute Hadamard gate of dimension > 3!"),
 
     };
 
@@ -301,7 +305,7 @@ fn hadamard_test() {
         }
     }
 
-    assert!( ones <= 600 && 400 <= ones)
+    assert!(ones <= 600 && 400 <= ones)
 }
 
 #[test]
@@ -456,8 +460,8 @@ fn quantum_fourier_transform_test() {
     //                  |1 -1  1 -1|
     //                  |1 -i -1  i|
     //
-    assert!(c![ 0.5f64,  0.0f64].approx_eq(&qft.matrix().get(3, 0)));
-    assert!(c![ 0.0f64, -0.5f64].approx_eq(&qft.matrix().get(3, 1)));
-    assert!(c![-0.5f64,  0.0f64].approx_eq(&qft.matrix().get(3, 2)));
-    assert!(c![ 0.0f64,  0.5f64].approx_eq(&qft.matrix().get(3, 3)));
+    assert!(c![0.5f64, 0.0f64].approx_eq(&qft.matrix().get(3, 0)));
+    assert!(c![0.0f64, -0.5f64].approx_eq(&qft.matrix().get(3, 1)));
+    assert!(c![-0.5f64, 0.0f64].approx_eq(&qft.matrix().get(3, 2)));
+    assert!(c![0.0f64, 0.5f64].approx_eq(&qft.matrix().get(3, 3)));
 }

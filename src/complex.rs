@@ -23,7 +23,10 @@ impl Complex {
 
     /// Construct a new complex number as `r * exp(i * phi)` with 64-bit float parts.
     pub fn new_euler(r: f64, phi: f64) -> Complex {
-        Complex { re: r * phi.cos(), im: r * phi.sin() }
+        Complex {
+            re: r * phi.cos(),
+            im: r * phi.sin(),
+        }
     }
 
     /// Construct a new primitive nth root of unity.
