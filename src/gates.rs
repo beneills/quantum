@@ -19,13 +19,22 @@ pub fn identity(width: usize) -> Gate {
 /// See [Wikipedia](https://en.wikipedia.org/wiki/Hadamard_transform#Quantum_computing_applications)
 /// for more information.
 #[allow(unused, trivial_numeric_casts)]
-pub fn hadamard() -> Gate {
+pub fn hadamard(n: usize) -> Gate {
     let sqrt2inv = 2.0f64.sqrt().recip();
 
-    let mut m = m_real![sqrt2inv,  sqrt2inv;
-                        sqrt2inv, -sqrt2inv];
+    let mut m = match n {
+        0 => Matrix::identity(1),
+        1 => m_real![sqrt2inv,  sqrt2inv;
+                     sqrt2inv, -sqrt2inv],
+        2 => m_real![0.5,  0.5,  0.5,  0.5;
+                     0.5, -0.5,  0.5, -0.5;
+                     0.5,  0.5, -0.5, -0.5;
+                     0.5, -0.5, -0.5,  0.5],
+        _ => panic!("Cannot compute Hadamard gate of dimension > 3!")
 
-    Gate::new(1, m)
+    };
+
+    Gate::new(n, m)
 }
 
 /// The Pauli-X gate.
@@ -252,7 +261,7 @@ fn hadamard_test() {
 
     let mut apply_hadamard = || {
         c.initialize(0);
-        c.apply(hadamard());
+        c.apply(hadamard(1));
         c.collapse();
         let v = c.value();
         c.reset();
