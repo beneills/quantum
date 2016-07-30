@@ -14,9 +14,9 @@ extern crate rand;
 
 pub mod macros;
 
+pub mod algorithms;
 pub mod complex;
 pub mod computer;
-pub mod deutsch;
 pub mod gate;
 pub mod gates;
 pub mod ket;

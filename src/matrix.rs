@@ -209,7 +209,7 @@ impl<'a> Mul<&'a Vector> for &'a Matrix {
 
 #[test]
 fn matrix_test() {
-   let mut m = m_real![1, 2; 3, 4];
+   let m = m_real![1, 2; 3, 4];
 
     let mut v: Vector = [Complex::zero(); MAX_SIZE];
     v[0] = c!(10f64, 0f64);
@@ -219,9 +219,9 @@ fn matrix_test() {
     expected[0] = c!(50f64, 0f64);
     expected[1] = c!(110f64, 0f64);
 
-    let mut added = m_real![2, 4; 6, 8];
+    let added = m_real![2, 4; 6, 8];
 
-    let mut squared = m_real![7, 10; 15, 22];
+    let squared = m_real![7, 10; 15, 22];
 
     assert_eq!(added, &m + &m);
     assert_eq!(squared, &m * &m);
@@ -231,7 +231,7 @@ fn matrix_test() {
 #[test]
 fn embed_test() {
    let mut m = m_real![1, 2; 3, 4];
-   let mut n = m_real![5];
+   let n = m_real![5];
 
    m.embed(&n, 1, 1);
 

@@ -1,4 +1,4 @@
-//! Examples of quantum algorithms.
+//! Deutsch's algorithm.
 
 use complex::Complex;
 

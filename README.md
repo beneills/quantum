@@ -29,7 +29,7 @@ quantum = "0.1.3"
 // main.rs
 
 use computer::QuantumComputer;
-use deutsch;
+use algorithms::deutsch;
 use gates;
 
 // Let's do something simple of a 3-qubit system.
