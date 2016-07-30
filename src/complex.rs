@@ -1,6 +1,7 @@
 //! Complex number library code (public for pedagogical reasons).
 
 use std::f64::consts::PI;
+use std::fmt;
 use std::ops::Add;
 use std::ops::AddAssign;
 use std::ops::Mul;
@@ -8,7 +9,7 @@ use std::ops::MulAssign;
 use std::ops::Neg;
 
 /// Holds a complex number with 64-bit float parts.
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, PartialEq)]
 pub struct Complex {
     re: f64,
     im: f64,
@@ -26,9 +27,13 @@ impl Complex {
     }
 
     /// Construct a new primitive nth root of unity.
-    pub fn nth_root_of_unity(n: i32) -> Complex {
-        let angle = (2f64 * PI) / (n as f64);
-        Complex::new_euler(1f64, angle)
+    pub fn nth_root_of_unity(n: u32) -> Complex {
+        if 0 == n {
+            Complex::one()
+        } else {
+            let angle = (2f64 * PI) / (n as f64);
+            Complex::new_euler(1f64, angle)
+        }
     }
 
     /// Zero in the complex plane, i.e. `0 + 0i`.
@@ -55,7 +60,9 @@ impl Complex {
     pub fn pow(&self, n: u32) -> Complex {
         let optimization = 5;
 
-        if n < optimization {
+        if 0 == n {
+            Complex::one()
+        } else if n < optimization {
             let mut x = Complex::one();
 
             for _ in 0..n {
@@ -140,6 +147,12 @@ impl Neg for Complex {
     }
 }
 
+impl fmt::Debug for Complex {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:+.3} + {:+.3}i", self.re, self.im)
+    }
+}
+
 #[test]
 fn complex_test() {
     assert_eq!(c![4f64, 6f64], c![1f64, 2f64] + c![3f64, 4f64]);
@@ -152,4 +165,6 @@ fn complex_test() {
 
     let x = Complex::nth_root_of_unity(15);
     assert!(Complex::one().approx_eq(&x.pow(15)));
+
+    assert_eq!(Complex::one(), c![7f64, 8f64].pow(0));
 }

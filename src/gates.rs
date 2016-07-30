@@ -227,6 +227,30 @@ pub fn fredkin() -> Gate {
     Gate::new(3, m)
 }
 
+/// The Quantum Fourier Transform on n qubits.
+///
+/// See [Wikipedia](https://en.wikipedia.org/wiki/Quantum_Fourier_transform)
+/// for more information.
+#[allow(unused)]
+pub fn quantum_fourier_transform(n: usize) -> Gate {
+    let d = Ket::size(n);
+    let c = (d as f64).sqrt().recip();
+    let r = Complex::nth_root_of_unity(d as u32);
+
+    let mut m = Matrix::new(d);
+
+    for i in 0..d {
+        for j in 0..i + 1 {
+            let v = c![c, 0f64] * r.pow((i * j) as u32);
+
+            m.set(i, j, v);
+            m.set(j, i, v);
+        }
+    }
+
+    Gate::new(n, m)
+}
+
 /// Convenience macro for testing a quantum gate.
 macro_rules! test_gate {
     ($computer:expr, $gate:expr, $from:expr, $to:expr) => {
@@ -421,4 +445,19 @@ fn fredkin_test() {
 
     // |111> goes to |111>
     test_gate!(c, fredkin(), 7, 7);
+}
+
+#[test]
+fn quantum_fourier_transform_test() {
+    let qft = quantum_fourier_transform(2);
+
+    // qft(2) = (1/2) * |1  1  1  1|
+    //                  |1  i -1 -i|
+    //                  |1 -1  1 -1|
+    //                  |1 -i -1  i|
+    //
+    assert!(c![ 0.5f64,  0.0f64].approx_eq(&qft.matrix().get(3, 0)));
+    assert!(c![ 0.0f64, -0.5f64].approx_eq(&qft.matrix().get(3, 1)));
+    assert!(c![-0.5f64,  0.0f64].approx_eq(&qft.matrix().get(3, 2)));
+    assert!(c![ 0.0f64,  0.5f64].approx_eq(&qft.matrix().get(3, 3)));
 }

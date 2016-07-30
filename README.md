@@ -79,6 +79,7 @@ We provide the following quantum gates:
 + _Controlled-Z_
 +	_Toffoli_
 +	_Fredkin_
++ _Quantum Fourier Transform_
 
 ## Contributing
 
