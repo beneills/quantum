@@ -93,6 +93,23 @@ impl QuantumRegister {
         // TODO log this somewhere
         ClassicalRegister::from_state(self.width, 0)
     }
+
+    /// Compute the probabilities of each state without collapsing.
+    ///
+    /// This function is intended for test purposes.
+    ///
+    /// We return a vector of probabilities mirroring a ket, but without trailing zeroes.
+    pub fn probabilities(&self) -> Vec<f64> {
+        assert_eq!(false, self.collapsed.get());
+
+        let mut probabilities = vec![];
+
+        for (_, coefficient) in self.ket.elements.iter().take(Ket::size(self.width)).enumerate() {
+            probabilities.push(coefficient.norm_sqr());
+        }
+
+        probabilities
+    }
 }
 
 #[test]
@@ -124,6 +141,24 @@ fn double_collapse_test() {
     let mut r: QuantumRegister = QuantumRegister::new(4, &nibble);
     r.collapse();
     r.collapse();
+}
+
+#[test]
+fn probabilities_test() {
+    use float_cmp::ApproxEqUlps;
+    use gates;
+
+    // We zero intialize our single qubit, then apply the Hadamard gate to
+    // achieve a symmetrical system where ach of the two possible states are
+    // equally likely.
+    let nibble = ClassicalRegister::zeroed(1);
+    let mut r: QuantumRegister = QuantumRegister::new(1, &nibble);
+    r.apply(gates::hadamard(1));
+
+    // Now we test that the proabbilities are balanced, i.e. equal to vec![0.5, 0.5]
+    assert_eq!(2, r.probabilities().len());
+    assert!(0.5f64.approx_eq_ulps(&r.probabilities()[0], 10));
+    assert!(0.5f64.approx_eq_ulps(&r.probabilities()[1], 10));
 }
 
 /// Represents a non-quantum register of `width()` bits.
