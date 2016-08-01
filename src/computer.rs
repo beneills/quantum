@@ -101,6 +101,17 @@ impl QuantumComputer {
 
         self.classical.to_int()
     }
+
+    /// Compute the probabilities of each register state without collapsing.
+    ///
+    /// This function is intended for test purposes.
+    ///
+    /// We return a vector of probabilities mirroring a ket, but without trailing zeroes.
+    pub fn probabilities(&self) -> Vec<f64> {
+        assert_eq!(State::Running, self.state);
+
+        self.register.probabilities()
+    }
 }
 
 #[test]
@@ -133,4 +144,20 @@ fn compute_test() {
     c.collapse();
 
     assert_eq!(5, c.value());
+}
+
+#[test]
+fn probabilities_test() {
+    use float_cmp::ApproxEqUlps;
+    use gates;
+
+    let mut c = QuantumComputer::new(1);
+
+    c.initialize(0);
+
+    c.apply(gates::hadamard(1));
+
+    assert_eq!(2, c.probabilities().len());
+    assert!(0.5f64.approx_eq_ulps(&c.probabilities()[0], 10));
+    assert!(0.5f64.approx_eq_ulps(&c.probabilities()[1], 10));
 }

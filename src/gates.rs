@@ -283,29 +283,17 @@ fn identity_test() {
 
 #[test]
 fn hadamard_test() {
+    use float_cmp::ApproxEqUlps;
+
     use computer::QuantumComputer;
 
     let mut c = QuantumComputer::new(1);
 
-    let mut apply_hadamard = || {
-        c.initialize(0);
-        c.apply(hadamard(1));
-        c.collapse();
-        let v = c.value();
-        c.reset();
+    c.initialize(0);
+    c.apply(hadamard(1));
 
-        v
-    };
-
-    let mut ones = 0;
-
-    for _ in 0..1000 {
-        if 1 == apply_hadamard() {
-            ones += 1;
-        }
-    }
-
-    assert!(ones <= 600 && 400 <= ones)
+    assert!(0.5f64.approx_eq_ulps(&c.probabilities()[0], 10));
+    assert!(0.5f64.approx_eq_ulps(&c.probabilities()[1], 10));
 }
 
 #[test]
