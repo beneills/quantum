@@ -98,6 +98,27 @@ impl Matrix {
         }
     }
 
+    /// Permute the rows to generate a new matrix.
+    ///
+    /// Row _i_ goes to row _perutation[i]_.
+    ///
+    /// # Panics
+    ///
+    /// We panic if set(permutation) != {0, ..., self.size - 1}.
+    pub fn permute_rows(&self, permutation: Vec<usize>) -> Matrix {
+        assert!(self.size == permutation.len());
+
+        let mut m = Matrix::new(self.size);
+
+        for (source_i, target_i) in permutation.iter().enumerate() {
+            for j in 0..self.size {
+                m.set(*target_i, j, self.get(source_i, j));
+            }
+        }
+
+        m
+    }
+
     /// Size of the matrix.
     pub fn size(&self) -> usize {
         self.size
@@ -260,4 +281,12 @@ fn embed_test() {
     m.embed(&n, 1, 1);
 
     assert_eq!(m_real![1, 2; 3, 5], m);
+}
+
+#[test]
+fn permutation_test() {
+    let m = m_real![1, 2; 3, 4];
+    let n = m.permute_rows(vec![1,0]);
+
+    assert_eq!(m_real![3, 4; 1, 2], n);
 }
