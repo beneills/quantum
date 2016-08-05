@@ -49,4 +49,20 @@ impl Gate {
     pub fn matrix(&self) -> &Matrix {
         &self.matrix
     }
+
+    /// Permute the qubits on which we act.
+    ///
+    /// Qubit _i_ will be acted on as qubit _permutation[i]_ was before.
+    ///
+    /// TODO: The consumer has to work out the (complicated) matrix permutation.  We ought to
+    ///       be able to compute this ourselves from a qubit permutation.
+    ///
+    /// # Panics
+    ///
+    /// We panic if set(permutation) != {0, ..., self.size - 1}.
+    pub fn permute(&self, permutation: Vec<usize>) -> Gate {
+        let m = self.matrix.permute_rows(permutation);
+
+        Gate::new(self.width, m)
+    }
 }
