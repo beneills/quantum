@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Ket","A ket describes the state of a quantum register."]]});

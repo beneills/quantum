@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `gates` mod in crate `quantum`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, gates">
+
+    <title>quantum::gates - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>quantum</a></p><script>window.sidebarCurrent = {name: 'gates', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>quantum</a>::<wbr><a class='mod' href=''>gates</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-285' class='srclink' href='../../src/quantum/src/gates.rs.html#1-467' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>Implementations of quantum gates, intended for consumer use.</p>
+</div><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.controlled.html'
+                                  title='quantum::gates::controlled'>controlled</a></td>
+                           <td class='docblock short'>
+                                <p>A two qubit controlled gate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.controlled_not.html'
+                                  title='quantum::gates::controlled_not'>controlled_not</a></td>
+                           <td class='docblock short'>
+                                <p>The two qubit controlled not gate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.controlled_x.html'
+                                  title='quantum::gates::controlled_x'>controlled_x</a></td>
+                           <td class='docblock short'>
+                                <p>The two qubit controlled-X gate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.controlled_y.html'
+                                  title='quantum::gates::controlled_y'>controlled_y</a></td>
+                           <td class='docblock short'>
+                                <p>The two qubit controlled-Y gate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.controlled_z.html'
+                                  title='quantum::gates::controlled_z'>controlled_z</a></td>
+                           <td class='docblock short'>
+                                <p>The two qubit controlled-Z gate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.fredkin.html'
+                                  title='quantum::gates::fredkin'>fredkin</a></td>
+                           <td class='docblock short'>
+                                <p>The three qubit Fredkin gate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.hadamard.html'
+                                  title='quantum::gates::hadamard'>hadamard</a></td>
+                           <td class='docblock short'>
+                                <p>The Hadamard gate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.identity.html'
+                                  title='quantum::gates::identity'>identity</a></td>
+                           <td class='docblock short'>
+                                <p>The identity gate, not mutating the state at all.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.pauli_x.html'
+                                  title='quantum::gates::pauli_x'>pauli_x</a></td>
+                           <td class='docblock short'>
+                                <p>The Pauli-X gate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.pauli_y.html'
+                                  title='quantum::gates::pauli_y'>pauli_y</a></td>
+                           <td class='docblock short'>
+                                <p>The Pauli-Y gate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.pauli_z.html'
+                                  title='quantum::gates::pauli_z'>pauli_z</a></td>
+                           <td class='docblock short'>
+                                <p>The Pauli-Z gate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.phase_shift.html'
+                                  title='quantum::gates::phase_shift'>phase_shift</a></td>
+                           <td class='docblock short'>
+                                <p>A single qubit phase-shift gate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.quantum_fourier_transform.html'
+                                  title='quantum::gates::quantum_fourier_transform'>quantum_fourier_transform</a></td>
+                           <td class='docblock short'>
+                                <p>The Quantum Fourier Transform on n qubits.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.sqrt_swap.html'
+                                  title='quantum::gates::sqrt_swap'>sqrt_swap</a></td>
+                           <td class='docblock short'>
+                                <p>The two qubit sqrt(swap) gate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.swap.html'
+                                  title='quantum::gates::swap'>swap</a></td>
+                           <td class='docblock short'>
+                                <p>The two qubit swap gate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.toffoli.html'
+                                  title='quantum::gates::toffoli'>toffoli</a></td>
+                           <td class='docblock short'>
+                                <p>The three qubit Toffoli gate.</p>
+                           </td>
+                       </tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "quantum";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

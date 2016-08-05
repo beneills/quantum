@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["NonEntangledQubit","Represents a single (pure, not entangled) qubit state of the form `a|0> + b|1>`."]]});

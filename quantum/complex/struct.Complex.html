@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Complex` struct in crate `quantum`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Complex">
+
+    <title>quantum::complex::Complex - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>quantum</a>::<wbr><a href='index.html'>complex</a></p><script>window.sidebarCurrent = {name: 'Complex', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>quantum</a>::<wbr><a href='index.html'>complex</a>::<wbr><a class='struct' href=''>Complex</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-63' class='srclink' href='../../src/quantum/src/complex.rs.html#13-16' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Complex {
+    // some fields omitted
+}</pre><div class='docblock'><p>Holds a complex number with 64-bit float parts.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-87' class='srclink' href='../../src/quantum/src/complex.rs.html#18-114' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(re: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, im: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>Construct a new complex number as <code>re + im * i</code> with 64-bit float parts.</p>
+</div><h4 id='method.new_euler' class='method'><code>fn <a href='#method.new_euler' class='fnname'>new_euler</a>(r: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, phi: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>Construct a new complex number as <code>r * exp(i * phi)</code> with 64-bit float parts.</p>
+</div><h4 id='method.nth_root_of_unity' class='method'><code>fn <a href='#method.nth_root_of_unity' class='fnname'>nth_root_of_unity</a>(n: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>Construct a new primitive nth root of unity.</p>
+</div><h4 id='method.zero' class='method'><code>fn <a href='#method.zero' class='fnname'>zero</a>() -&gt; <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>Zero in the complex plane, i.e. <code>0 + 0i</code>.</p>
+</div><h4 id='method.one' class='method'><code>fn <a href='#method.one' class='fnname'>one</a>() -&gt; <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>One in the complex plane, i.e. <code>1 + 0i</code>.</p>
+</div><h4 id='method.i' class='method'><code>fn <a href='#method.i' class='fnname'>i</a>() -&gt; <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>The imaginary unit.</p>
+</div><h4 id='method.norm_sqr' class='method'><code>fn <a href='#method.norm_sqr' class='fnname'>norm_sqr</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Compute the square of the norm/absolute value, i.e. <em>|z|<sup>2</sup></em>.</p>
+</div><h4 id='method.pow' class='method'><code>fn <a href='#method.pow' class='fnname'>pow</a>(&amp;self, n: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>Compute an integer power of this number efficiently with repeated squaring.</p>
+</div><h4 id='method.re' class='method'><code>fn <a href='#method.re' class='fnname'>re</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>The real part.</p>
+</div><h4 id='method.im' class='method'><code>fn <a href='#method.im' class='fnname'>im</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>The imaginary part.</p>
+</div><h4 id='method.approx_eq' class='method'><code>fn <a href='#method.approx_eq' class='fnname'>approx_eq</a>(&amp;self, other: &amp;<a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Approximately equal test.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Add.html' title='core::ops::Add'>Add</a>&lt;<a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a>&gt; for <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-121' class='srclink' href='../../src/quantum/src/complex.rs.html#116-122' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Output' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Add.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>The resulting type after applying the <code>+</code> operator</p>
+</div><h4 id='method.add' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Add.html#tymethod.add' class='fnname'>add</a>(self, rhs: <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a>) -&gt; <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>The method for the <code>+</code> operator</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html' title='core::ops::Mul'>Mul</a>&lt;<a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a>&gt; for <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-126' class='srclink' href='../../src/quantum/src/complex.rs.html#124-131' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Output-1' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>The resulting type after applying the <code>*</code> operator</p>
+</div><h4 id='method.mul' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#tymethod.mul' class='fnname'>mul</a>(self, rhs: <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a>) -&gt; <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>The method for the <code>*</code> operator</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.AddAssign.html' title='core::ops::AddAssign'>AddAssign</a> for <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-131' class='srclink' href='../../src/quantum/src/complex.rs.html#133-137' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.add_assign' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.AddAssign.html#tymethod.add_assign' class='fnname'>add_assign</a>(&amp;mut self, rhs: <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a>)</code></h4>
+<div class='docblock'><p>The method for the <code>+=</code> operator</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.MulAssign.html' title='core::ops::MulAssign'>MulAssign</a> for <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-135' class='srclink' href='../../src/quantum/src/complex.rs.html#139-143' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.mul_assign' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.MulAssign.html#tymethod.mul_assign' class='fnname'>mul_assign</a>(&amp;mut self, rhs: <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a>)</code></h4>
+<div class='docblock'><p>The method for the <code>*=</code> operator</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Neg.html' title='core::ops::Neg'>Neg</a> for <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-139' class='srclink' href='../../src/quantum/src/complex.rs.html#145-151' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Output-2' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Neg.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>The resulting type after applying the <code>-</code> operator</p>
+</div><h4 id='method.neg' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Neg.html#tymethod.neg' class='fnname'>neg</a>(self) -&gt; <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>The method for the unary <code>-</code> operator</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-143' class='srclink' href='../../src/quantum/src/complex.rs.html#153-157' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-66' class='srclink' href='../../src/quantum/src/complex.rs.html#12' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+</div><h4 id='method.ne' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>This method tests for <code>!=</code>.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-81' class='srclink' href='../../src/quantum/src/complex.rs.html#12' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-82' class='srclink' href='../../src/quantum/src/complex.rs.html#12' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../quantum/complex/struct.Complex.html' title='quantum::complex::Complex'>Complex</a></code></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "quantum";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

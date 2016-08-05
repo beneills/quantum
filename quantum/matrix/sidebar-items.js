@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_SIZE","Max size of matrix and therefore ket."]],"struct":[["Matrix","Represents a square matrix over C of maximum size `MAX_SIZE`."]],"type":[["Vector","Efficient array of complex numbers."]]});

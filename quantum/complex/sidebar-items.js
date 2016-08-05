@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Complex","Holds a complex number with 64-bit float parts."]]});

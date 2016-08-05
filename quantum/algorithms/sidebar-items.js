@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["deutsch","Deutsch's algorithm."]]});

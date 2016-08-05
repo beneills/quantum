@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["QuantumComputer","Represents a quantum computer of one register."]]});

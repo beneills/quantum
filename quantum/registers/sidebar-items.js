@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ClassicalRegister","Represents a non-quantum register of `width()` bits."],["QuantumRegister","Represents a register of an arbitrary number of qubits."]]});

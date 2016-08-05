@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["deutsch_gate","Takes |a, b> to |a, b+f(a)>"]]});
