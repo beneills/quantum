@@ -66,3 +66,21 @@ impl Gate {
         Gate::new(self.width, m)
     }
 }
+
+#[test]
+fn permutation_test() {
+    use gates::controlled_not;
+    use computer::QuantumComputer;
+
+    let mut c = QuantumComputer::new(2);
+
+    let flipped_controlled_not = controlled_not().permute(vec![2, 3, 0, 1]);
+
+    // |01> goes to |11>
+    c.initialize(1);
+    c.apply(flipped_controlled_not);
+    c.collapse();
+    assert_eq!(3, c.value());
+    c.reset();
+
+}

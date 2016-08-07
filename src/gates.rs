@@ -453,15 +453,3 @@ fn quantum_fourier_transform_test() {
     assert!(c![-0.5f64, 0.0f64].approx_eq(&qft.matrix().get(3, 2)));
     assert!(c![0.0f64, 0.5f64].approx_eq(&qft.matrix().get(3, 3)));
 }
-
-#[test]
-fn permutation_test() {
-    use computer::QuantumComputer;
-
-    let mut c = QuantumComputer::new(2);
-
-    let flipped_controlled_not = controlled_not().permute(vec![2, 3, 0, 1]);
-
-    // |01> goes to |11>
-    test_gate!(c, flipped_controlled_not, 1, 3);
-}
